@@ -1,8 +1,10 @@
+import java.util.*;
+
 public class Readable extends Item {
 	protected String authorName;
 
 	public Readable(int sNo,String authorName, String bookName, int price, int quantity){
-		super(sNo,name,price,quantity);
+		super(sNo,bookName,price,quantity);
 		this.authorName = authorName;
 	}
 
@@ -15,5 +17,17 @@ public class Readable extends Item {
 	@Override
 	public int getPrice(){
 		return price;
+	}
+
+	@Override
+	public ArrayList toArray(){
+		Arraylist info = new ArrayList();
+		info.add(sNo);
+		info.add(authorName);
+		info.add(bookName);
+		info.add(price);
+		info.add(quantity);
+
+		return info;
 	}
 }

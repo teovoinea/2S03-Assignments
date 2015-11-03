@@ -8,7 +8,7 @@ public class Book extends Readable{
 
 	// this won't work cause 1.02 is a float
 	// maybe pass in price ?
-	@Override
+	//@Override
 	public int getPrice(float eTax){
 		//return 1.02 * price;
 		return (int) eTax * price;
@@ -19,6 +19,20 @@ public class Book extends Readable{
 		// What does that mean ?
 		return 0;
 	}
+
+	@Override
+	public ArrayList toArray(){
+		Arraylist info = new ArrayList();
+		info.add(sNo);
+		info.add(authorName);
+		info.add(bookName);
+		info.add(price);
+		info.add(quantity);
+		info.add(type);
+
+		return info;
+	}
+
 
 	public String[] getStringArray(){
 		System.out.println(sNo + "");

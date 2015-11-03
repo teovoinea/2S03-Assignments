@@ -14,6 +14,7 @@
 // In eBook.java	
 // override and only call the parent's constructor to get the base price.
 // ask about what that means
+import java.util.*;
 
 public abstract class Item{
 	// fields
@@ -28,6 +29,8 @@ public abstract class Item{
 		this.sNo = sNo;
 		this.quantity = quantity;
 	}
+
+	public abstract ArrayList toArray();
 
 	// methods
 	public abstract String getInfo();

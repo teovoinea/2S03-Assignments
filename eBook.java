@@ -7,6 +7,19 @@ public class eBook extends Readable{
 	}
 
 	@Override
+	public ArrayList toArray(){
+		Arraylist info = new ArrayList();
+		info.add(sNo);
+		info.add(authorName);
+		info.add(bookName);
+		info.add(price);
+		info.add(quantity);
+		info.add(type);
+
+		return info;
+	}
+
+	@Override
 	public int getPrice(){
 		// override and only call the parent's constructor to get the base price.
 		// ask about what that means

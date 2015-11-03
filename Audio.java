@@ -11,16 +11,21 @@ public class Audio extends Item{
     protected String artistName;
     protected String name;
 
+    public Audio(int sNo,String name, String artistName, int price, int quantity){
+        super(sNo,name,price,quantity);
+        this.artistName = artistName;
+    }
+
     public int getPrice(){
-	return price;
+	   return price;
     }
     
     public String[] getInfo(){
-	return new String[]{sNo + "", artistName, price, name, quantity};
+	   return new String[]{sNo + "", artistName, price, name, quantity};
     }
 
     public int getListInfo(){
-	return 0;
+	   return 0;
     }
 
 }
