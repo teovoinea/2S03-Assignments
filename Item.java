@@ -24,8 +24,8 @@ public abstract class Item{
 	// fields
 	protected int price;
 	protected int sNo;
-    protected String name;
-    protected int quanitty; 
+	protected String name;
+	protected int quantity; 
        
 	public Item(int price, int sNo){
 		this.price = price;
