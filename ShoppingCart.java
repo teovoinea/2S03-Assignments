@@ -5,6 +5,8 @@
 * Description: File containing the ShoppingCart class
 */
 public class ShoppingCart extends User{
+	public ShoppingCart(){
+	}
 	private Item[] content;
 	public Item[] getContent(){
 		return content;
