@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package eCommerce;
 /*
 * Name: Nick Morrison, Roberto Temelkovski, Teo Voinea
@@ -6,9 +5,9 @@ package eCommerce;
 * Student Number: 1426613, 1418731, 1409586
 * Description: File containing the item class
 */
-=======
+
 // ask about 2% tax always being an int for readables
->>>>>>> devR
+
 
 // in Book.java ask about below statement
 // Based on the value of Type(Book or eBook) print the list of Items
@@ -25,7 +24,9 @@ public abstract class Item{
 	// fields
 	protected int price;
 	protected int sNo;
-
+    protected String name;
+    protected int quanitty; 
+       
 	public Item(int price, int sNo){
 		this.price = price;
 		this.sNo = sNo;
