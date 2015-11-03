@@ -1,7 +1,6 @@
 public class eBook extends ​Readable{
 	public eBook(int price,int sNo,String authorName){
 		super(price,sNo,authorName);
-
 	}
 
 	@Override

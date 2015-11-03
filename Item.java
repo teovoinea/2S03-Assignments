@@ -1,5 +1,3 @@
-package eCommerce;
-
 // ask about 2% tax always being an int for readables
 
 // in Book.java ask about below statement
@@ -12,6 +10,7 @@ package eCommerce;
 // override and only call the parent’s constructor to get the base price.
 // ask about what that means
 
+// ask if allowed to use buffered reader
 public abstract class Item{
 	// fields
 	protected int price;

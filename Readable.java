@@ -9,7 +9,7 @@ public class Readable extends Item {
 	@Override
 	public String getInfo(){
 		// returns sNo,name, authorName, etc in a string
-		return sNo + ": " + name + " " + authorName;
+		return sNo + ": " + authorName + " " + authorName;
 	}
 
 	@Override
