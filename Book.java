@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Book extends Readable{
 
 	public Book(int price,int sNo,String authorName){
