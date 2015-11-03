@@ -1,8 +1,8 @@
 public class Readable extends Item {
 	protected​ String authorName;
 
-	public Readable(int price,int sNo,String authorName){
-		super(price,sNo);
+	public Readable(int sNo,String authorName, String bookName, int price, int quantity){
+		super(sNo,name,price,quantity);
 		this.authorName = authorName;
 	}
 

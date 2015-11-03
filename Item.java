@@ -22,9 +22,11 @@ public abstract class Item{
 	protected String name;
 	protected int quantity; 
        
-	public Item(int price, int sNo){
+	public Item(int sNo, String name, int price,int quantity){
 		this.price = price;
+		this.name = name;
 		this.sNo = sNo;
+		this.quantity = quantity;
 	}
 
 	// methods

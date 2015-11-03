@@ -1,6 +1,9 @@
 public class eBook extends ​Readable{
-	public eBook(int price,int sNo,String authorName){
-		super(price,sNo,authorName);
+	String type;
+
+	public eBook(int sNo,String authorName, String bookName, int price, int quantity){
+		super(sNo,authorName,bookName,price,quantity);
+		type = "eBook";
 	}
 
 	@Override
