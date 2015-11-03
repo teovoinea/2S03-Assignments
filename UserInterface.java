@@ -130,8 +130,7 @@ public class UserInterface{
 		System.out.println("Readables: ");
 		System.out.println("");
 		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_author, output_price, output_quantity, output_type);
-		for (Object i : rc) {
-			Readable r = (Readable)i;
+		for (Readable i : rc) {
 			//System.out.format("%4s%32d%6d%10d%32d%5s");
 		}
 		System.out.println("Choose your option: ");
@@ -177,8 +176,7 @@ public class UserInterface{
 		System.out.println("Audio: ");
 		System.out.println("");
 		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_artist, output_price, output_quantity, output_type);
-		for (Object i : ac) {
-			Audio a = i(Audio);
+		for (Audio i : ac) {
 			//System.out.format("%4s%32d%6d%10d%32d%5s");
 		}
 	}

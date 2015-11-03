@@ -6,7 +6,7 @@
 */
 import java.util.*;
 public class HWK4_voineat{
-	private UserInterface ui = new UserInterface();
+	static private UserInterface ui = new UserInterface();
 	public static void main(String[] args){
 		ui.changeCurrentPage(1);
 	}
