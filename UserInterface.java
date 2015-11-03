@@ -4,8 +4,15 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: File containing the UserInterface class
 */
+import java.util.*;
 public class UserInterface{
+	private User user = new User();
+	private ShoppingCart sc = new ShoppingCart();
+	private ReadableCollection rc;
+	private AudioCollection ac;
 	public UserInterface(){
+		init();
+		ArrayList<String> users = readUser();
 	}
 	private int currentPage;
 	public int getCurrentPage(){
@@ -15,52 +22,49 @@ public class UserInterface{
 		if (c > 0 && c < 11){
 			currentPage = c;
 		}
-		if (c == 1){
-			P1();
-		}
-		else if (c == 2){
-			P2();
-		}
-		else if (c == 3){
-			P3();
-		}
-		else if (c == 4){
-			P4();
-		}
-		else if (c == 5){
-			P5();
-		}
-		else if (c == 6){
-			P6();
-		}
-		else if (c == 7){
-			P7();
-		}
-		else if (c == 8){
-			P8();
-		}
-		else if (c == 9){
-			P9();
-		}
-		else if (c == 10){
-			P10();
-		}
 	}
 
 	//Sign in menu
 	public void P1(){
-		System.out.println("1. Sign in");
-		System.out.println("2. Sign up");
-		System.out.println("Choose your option: ");
+		boolean loop = true;
+		while(loop){
+			System.out.println("1. Sign in");
+			System.out.println("2. Sign up");
+			System.out.println("Choose your option: ");
+			String input = System.console().readline();
+			if (input.equals("1")){
+				loop = P3();
+				changeCurrentPage(3);
+			}
+			else if (input.equals("2")){
+				loop = P2();
+				changeCurrentPage(2);
+			}
+		}
 	}
-	public void P2(){
+	public boolean P2(){
 		System.out.println("Choose your username: ");
+		String username = System.console().readline();
+		//add username to file
+		System.out.println("Username succesfully added");
+		return true;
 	}
-	public void P3(){
+	public boolean P3(){
 		System.out.println("Enter your username: ");
+		String username = System.console().readline();
+		if (users.contains(username)){
+			System.out.println("Hello Mr." + username);
+			user.setUsername(username);
+			return false;
+		}
+		else{
+			return P4();
+		}
 	}
-	public void P4(){
-		System.out.println("Enter your username: ")
+	public boolean P4(){
+		System.out.println("");
+		System.out.println("No Access");
+		return true;
 	}
 	public void P5(){
 		System.out.println("1. View Items By Category");
@@ -106,5 +110,45 @@ public class UserInterface{
 
 	public void P10(){
 		System.out.println("Billing Information: ");
+	}
+	public static void init(){
+		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>();
+		readables.add(readFile("Books"));
+		readables.add(readFile("Ebooks"));
+		ArrayList<ArrayList<String>> audio = new ArrayList<ArrayList<String>>();
+		audio.add("CDs");
+		audio.add("MP3");
+		rc = new ReadableCollection(readables);
+		ac = new AudioCollection(audio);
+	}
+	public static ArrayList<ArrayList<String>> readFile(String type){
+		ArrayList<ArrayList<String>> stringlist = new ArrayList<ArrayList<String>>(); 
+		BufferedReader reader;
+		try {
+        	reader = new BufferedReader(new FileReader(type + ".txt"));
+            String line = reader.readLine();
+
+            while (line!=null) {
+                // Print read line
+                System.out.println(line);
+                stringlist.add(new ArrayList<String>(Arrays.asList(line.split(", "))));
+                // Read next line for while condition
+                line = reader.readLine();
+            }
+            reader.close();
+            return stringlist;
+        }catch (IOException e){
+        	e.printStackTrace();
+        }
+	}
+	public ArrayList<String> readUser(){
+		ArrayList<String> lines = new ArrayList<String>();
+		try (BufferedReader br = new BufferedReader(new FileReader("Users.txt"))) {
+			String line;
+			while ((line = br.readLine()) != null){
+				lines.add(line);
+			}
+		}
+		return lines;
 	}
 }
