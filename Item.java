@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-package eCommerce;
->>>>>>> 7455c3cd0dab0d20dc489e68447a745ae50fd267
 /*
 * Name: Nick Morrison, Roberto Temelkovski, Teo Voinea
 * MacID: morrin2, temelkr, voineat
@@ -10,10 +6,6 @@ package eCommerce;
 */
 
 // ask about 2% tax always being an int for readables
-<<<<<<< HEAD
-=======
-
->>>>>>> 7455c3cd0dab0d20dc489e68447a745ae50fd267
 
 // in Book.java ask about below statement
 // Based on the value of Type(Book or eBook) print the list of Items
