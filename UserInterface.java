@@ -10,7 +10,7 @@ public class UserInterface{
 	private User user = new User();
 	private ShoppingCart sc = new ShoppingCart();
 	static private ReadableCollection rc;
-	static private AudioCollection ac;
+	//static private AudioCollection ac;
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> users;
 	private static String output_sno = "S.No";
@@ -176,21 +176,20 @@ public class UserInterface{
 		System.out.println("Audio: ");
 		System.out.println("");
 		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_artist, output_price, output_quantity, output_type);
-		for (Audio i : ac) {
+		/*for (Audio i : ac) {
 			//System.out.format("%4s%32d%6d%10d%32d%5s");
 		}
+		*/
 	}
 
 	public void P10(){
 		System.out.println("Billing Information: ");
 	}
 	public static void init(){
-		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>();
-		readables.add(readFile("Books"));
-		readables.add(readFile("Ebooks"));
-		ArrayList<ArrayList<String>> audio = new ArrayList<ArrayList<String>>();
-		audio.add("CDs");
-		audio.add("MP3");
+		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>(readFile("Books"));
+		readables.addAll(readFile("Ebooks"));
+		ArrayList<ArrayList<String>> audio = new ArrayList<ArrayList<String>>(readFile("CDs"));
+		audio.addAll(readFile("MP3"));
 		rc = new ReadableCollection(readables);
 		ac = new AudioCollection(audio);
 	}

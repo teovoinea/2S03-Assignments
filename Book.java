@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Book extends Readable{
 	String type;
 
@@ -22,10 +24,10 @@ public class Book extends Readable{
 
 	@Override
 	public ArrayList toArray(){
-		Arraylist info = new ArrayList();
+		ArrayList info = new ArrayList();
 		info.add(sNo);
 		info.add(authorName);
-		info.add(bookName);
+		info.add(name);
 		info.add(price);
 		info.add(quantity);
 		info.add(type);

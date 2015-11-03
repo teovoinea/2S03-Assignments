@@ -21,10 +21,10 @@ public class Readable extends Item {
 
 	@Override
 	public ArrayList toArray(){
-		Arraylist info = new ArrayList();
+		ArrayList info = new ArrayList();
 		info.add(sNo);
 		info.add(authorName);
-		info.add(bookName);
+		info.add(name);
 		info.add(price);
 		info.add(quantity);
 

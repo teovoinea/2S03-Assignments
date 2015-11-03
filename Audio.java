@@ -1,4 +1,3 @@
-package eCommerce;
 /*
 * Name: Nick Morrison, Roberto Temelkovski, Teo Voinea
 * MacID: morrin2, temelkr, voineat
@@ -16,10 +15,12 @@ public class Audio extends Item{
         this.artistName = artistName;
     }
 
+    @Override
     public int getPrice(){
 	   return price;
     }
     
+    @Override
     public String[] getInfo(){
 	   return new String[]{sNo + "", artistName, price, name, quantity};
     }
