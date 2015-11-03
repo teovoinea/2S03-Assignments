@@ -3,7 +3,7 @@ import java.util.*;
 public class Readable extends Item {
 	protected String authorName;
 
-	public Readable(int sNo,String authorName, String bookName, int price, int quantity){
+	public Readable(int sNo,String bookName, String authorName, int price, int quantity){
 		super(sNo,bookName,price,quantity);
 		this.authorName = authorName;
 	}

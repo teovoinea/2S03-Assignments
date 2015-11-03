@@ -9,10 +9,10 @@ public class ReadableCollection extends ArrayList<Readable>{
 
 		for (int i =0; i < stringList.size(); i++){
 			if (stringList.get(i).get(5).equals("Book")){
-				add(new Book(Integer.parseInt(stringList.get(i).get(0)), stringList.get(i).get(2) ,stringList.get(i).get(1), Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
+				add(new Book(Integer.parseInt(stringList.get(i).get(0)), stringList.get(i).get(1) ,stringList.get(i).get(2), Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
 				eTax += 0.02;
 			}else if (stringList.get(i).get(5).equals("eBook")){
-				add(new Book(Integer.parseInt(stringList.get(i).get(0)), stringList.get(i).get(2) ,stringList.get(i).get(1), Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
+				add(new Book(Integer.parseInt(stringList.get(i).get(0)), stringList.get(i).get(1) ,stringList.get(i).get(2), Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
 			}
 		}
 	}

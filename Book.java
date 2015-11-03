@@ -3,8 +3,8 @@ import java.util.*;
 public class Book extends Readable{
 	String type;
 
-	public Book(int sNo,String authorName, String bookName, int price, int quantity){
-		super(sNo,authorName,bookName,price,quantity);
+	public Book(int sNo,String bookName, String authorName, int price, int quantity){
+		super(sNo,bookName,authorName,price,quantity);
 		type = "Book";
 	}
 
