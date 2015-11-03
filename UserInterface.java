@@ -13,6 +13,13 @@ public class UserInterface{
 	static private AudioCollection ac;
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> users;
+	private static String output_sno = "S.No";
+	private static String output_name = "Name";
+	private static String output_artist = "Artist";
+	private static String output_author = "Author";
+	private static String output_price = "Price($)";
+	private static String output_quantity = "Quantity";
+	private static String output_type = "Type";
 	public UserInterface(){
 		init();
 		users = readUser();
@@ -111,6 +118,7 @@ public class UserInterface{
 		}
 		else if (input.equals("-1")){
 			//previous menu
+			P5();
 		}
 	}
 
@@ -121,11 +129,58 @@ public class UserInterface{
 	public void P8(){
 		System.out.println("Readables: ");
 		System.out.println("");
+		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_author, output_price, output_quantity, output_type);
+		for (Object i : rc) {
+			Readable r = (Readable)i;
+			//System.out.format("%4s%32d%6d%10d%32d%5s");
+		}
+		System.out.println("Choose your option: ");
+		System.out.println("Press -1 to return to previous menu.");
+		String input = scanner.nextLine();
+		if (input.equals("-1")){
+			P6();
+		}
+		else{
+			try{
+				int num = Integer.parseInt(input);
+				if (num > 0 && num < rc.size()){
+					String quantity = scanner.nextLine();
+					try{
+						int qty = Integer.parseInt(quantity);
+						for (int i = 0; i < qty; i++){
+							sc.AddItem(rc.get(i));
+						}
+						System.out.println(qty + "*name* succesfully added to your cart.");
+						String next = scanner.nextLine();
+						if (next.equals("0")){
+							P10();
+						}
+						else if (next.equals("-2")){
+							P6();
+						}
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+
+				}
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void P9(){
 		System.out.println("Audio: ");
 		System.out.println("");
+		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_artist, output_price, output_quantity, output_type);
+		for (Object i : ac) {
+			Audio a = i(Audio);
+			//System.out.format("%4s%32d%6d%10d%32d%5s");
+		}
 	}
 
 	public void P10(){
