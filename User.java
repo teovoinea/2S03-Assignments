@@ -6,7 +6,7 @@
 */
 public class User{
 	private String username;
-	public String setUsername(String name){
+	public void setUsername(String name){
 		username = name;
 	}
 	public String getUsername(){

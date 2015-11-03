@@ -11,8 +11,8 @@
 // Based on the value of Type(Book or eBook) print the list of Items
 // What does that mean ?
 
-// 	In eBook.java	
-// override and only call the parent’s constructor to get the base price.
+// In eBook.java	
+// override and only call the parent's constructor to get the base price.
 // ask about what that means
 
 public abstract class Item{

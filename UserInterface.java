@@ -5,14 +5,17 @@
 * Description: File containing the UserInterface class
 */
 import java.util.*;
+import java.io.*;
 public class UserInterface{
 	private User user = new User();
 	private ShoppingCart sc = new ShoppingCart();
-	private ReadableCollection rc;
-	private AudioCollection ac;
+	static private ReadableCollection rc;
+	static private AudioCollection ac;
+	Scanner scanner = new Scanner(System.in);
+	ArrayList<String> users;
 	public UserInterface(){
 		init();
-		ArrayList<String> users = readUser();
+		users = readUser();
 	}
 	private int currentPage;
 	public int getCurrentPage(){
@@ -31,7 +34,7 @@ public class UserInterface{
 			System.out.println("1. Sign in");
 			System.out.println("2. Sign up");
 			System.out.println("Choose your option: ");
-			String input = System.console().readline();
+			String input = scanner.nextLine();
 			if (input.equals("1")){
 				loop = P3();
 				changeCurrentPage(3);
@@ -44,14 +47,14 @@ public class UserInterface{
 	}
 	public boolean P2(){
 		System.out.println("Choose your username: ");
-		String username = System.console().readline();
+		String username = scanner.nextLine();
 		//add username to file
 		System.out.println("Username succesfully added");
 		return true;
 	}
 	public boolean P3(){
 		System.out.println("Enter your username: ");
-		String username = System.console().readline();
+		String username = scanner.nextLine();
 		if (users.contains(username)){
 			System.out.println("Hello Mr." + username);
 			user.setUsername(username);
@@ -67,35 +70,52 @@ public class UserInterface{
 		return true;
 	}
 	public void P5(){
-		System.out.println("1. View Items By Category");
-		System.out.println("2. View Shopping Cart");
-		System.out.println("3. Sign Out");
-		System.out.println("");
-		System.out.println("Choose your option");
-		/*
-		String input = System.console().readline();
-		if (input.equals("1")){
-			return "P3";
+		boolean loop = true;
+		while(loop){
+			System.out.println("1. View Items By Category");
+			System.out.println("2. View Shopping Cart");
+			System.out.println("3. Sign Out");
+			System.out.println("");
+			System.out.println("Choose your option");
+			String input = scanner.nextLine();
+			if (input.equals("1")){
+				changeCurrentPage(6);
+				loop = P6();
+			}
+			else if (input.equals("2")){
+				changeCurrentPage(7);
+				P7();
+				loop = true;
+			}
+			else if (input.equals("3")){
+				loop = false;
+				P1();
+				changeCurrentPage(1);
+			}
 		}
-		else if (input.equals("2")){
-			return "P4";
-		}
-		else if (input.equals("3")){
-			return "P1";	
-		}
-		else{ return ""; }*/
 	}
 
-	public void P6(){
+	public boolean P6(){
 		System.out.println("1. Readables");
 		System.out.println("2. Audio");
 		System.out.println("");
 		System.out.println("Choose your option: ");
 		System.out.println("");
 		System.out.println("Press -1 to return to previous menu");
+		String input = scanner.nextLine();
+		if (input.equals("1")){
+			//readables
+		}
+		else if (input.equals("2")){
+			//audio
+		}
+		else if (input.equals("-1")){
+			//previous menu
+		}
 	}
 
 	public void P7(){
+		System.out.println(sc.toString());
 	}
 
 	public void P8(){

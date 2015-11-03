@@ -22,4 +22,12 @@ public class ShoppingCart extends User{
 			content[i] = temp[i];
 		}
 	}
+	@Override
+	public String toString(){
+		String out = "";
+		for(int i = 0; i < content.length; i++){
+			out += content[i].toString() + '\n';
+		}
+		return out;
+	}
 }

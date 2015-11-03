@@ -1,4 +1,4 @@
-public class eBook extends ​Readable{
+public class eBook extends Readable{
 	String type;
 
 	public eBook(int sNo,String authorName, String bookName, int price, int quantity){
@@ -8,7 +8,7 @@ public class eBook extends ​Readable{
 
 	@Override
 	public int getPrice(){
-		// override and only call the parent’s constructor to get the base price.
+		// override and only call the parent's constructor to get the base price.
 		// ask about what that means
 	}
 }

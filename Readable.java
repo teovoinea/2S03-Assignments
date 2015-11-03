@@ -1,5 +1,5 @@
 public class Readable extends Item {
-	protected​ String authorName;
+	protected String authorName;
 
 	public Readable(int sNo,String authorName, String bookName, int price, int quantity){
 		super(sNo,name,price,quantity);
