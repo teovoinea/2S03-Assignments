@@ -131,7 +131,8 @@ public class UserInterface{
 		System.out.println("");
 		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_author, output_price, output_quantity, output_type);
 		for (Readable i : rc) {
-			//System.out.format("%4s%32d%6d%10d%32d%5s");
+			ArrayList al = i.toArray();
+			System.out.format("%4s%32d%6d%10d%32d%5s", al.get(1), al.get(2), al.get(3), al.get(4), al.get(5));
 		}
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
@@ -147,9 +148,9 @@ public class UserInterface{
 					try{
 						int qty = Integer.parseInt(quantity);
 						for (int i = 0; i < qty; i++){
-							sc.AddItem(rc.get(i));
+							sc.AddItem(rc.get(num));
 						}
-						System.out.println(qty + "*name* succesfully added to your cart.");
+						System.out.println(qty + " " + rc.get(num).toArray().get(3) + " " + "succesfully added to your cart.");
 						String next = scanner.nextLine();
 						if (next.equals("0")){
 							P10();
@@ -177,7 +178,45 @@ public class UserInterface{
 		System.out.println("");
 		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_artist, output_price, output_quantity, output_type);
 		/*for (Audio i : ac) {
-			//System.out.format("%4s%32d%6d%10d%32d%5s");
+			ArrayList al = i.toArray();
+			System.out.format("%4s%32d%6d%10d%32d%5s",al.get(1), al.get(2), al.get(3), al.get(4), al.get(5));
+		}
+		System.out.println("Choose your option: ");
+		System.out.println("Press -1 to return to previous menu.");
+		String input = scanner.nextLine();
+		if (input.equals("-1")){
+			P6();
+		}
+		else{
+			try{
+				int num = Integer.parseInt(input);
+				if (num > 0 && num < rc.size()){
+					String quantity = scanner.nextLine();
+					try{
+						int qty = Integer.parseInt(quantity);
+						for (int i = 0; i < qty; i++){
+							sc.AddItem(rc.get(num));
+						}
+						System.out.println(qty + " " + rc.get(num).toArray().get(3) + " " + "succesfully added to your cart.");
+						String next = scanner.nextLine();
+						if (next.equals("0")){
+							P10();
+						}
+						else if (next.equals("-2")){
+							P6();
+						}
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+
+				}
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 		}
 		*/
 	}
