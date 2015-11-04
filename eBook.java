@@ -1,5 +1,5 @@
 import java.util.*;
-public class eBook extends Readable{
+public class eBook extends Readable{ //CHANGE THIS TO EBook ROBERTOOO
 	String type;
 
 	public eBook(int sNo,String bookName, String authorName, int price, int quantity){
