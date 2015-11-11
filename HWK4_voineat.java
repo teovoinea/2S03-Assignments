@@ -9,5 +9,6 @@ public class HWK4_voineat{
 	static private UserInterface ui = new UserInterface();
 	public static void main(String[] args){
 		ui.changeCurrentPage(1);
+		ui.P1();
 	}
 }
