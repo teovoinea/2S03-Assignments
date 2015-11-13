@@ -5,7 +5,7 @@
 * Description: File containing the item class
 */
 
-public clsas MP3 extends Audio{
+public class MP3 extends Audio{
 
     public int getPrice(){
 	return super.getPrice();
