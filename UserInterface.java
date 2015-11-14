@@ -229,12 +229,18 @@ public class UserInterface{
 		System.out.println("Billing Information: ");
 	}
 	public static void init(){
-		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>(readFile("Books"));
-		readables.addAll(readFile("Ebooks"));
+		//getAudioProducts();
+		getReadables();
+	}
+	public static void getAudioProducts(){
 		ArrayList<ArrayList<String>> audio = new ArrayList<ArrayList<String>>(readFile("CDs"));
 		audio.addAll(readFile("MP3"));
-		rc = new ReadableCollection(readables);
 		ac = new AudioCollection(audio);
+	}
+	public static void getReadables(){
+		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>(readFile("Books"));
+		readables.addAll(readFile("Ebooks"));
+		rc = new ReadableCollection(readables);
 	}
 	public static ArrayList<ArrayList<String>> readFile(String type){
 		ArrayList<ArrayList<String>> stringlist = new ArrayList<ArrayList<String>>(); 
