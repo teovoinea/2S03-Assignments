@@ -37,6 +37,6 @@ public class Book extends Readable{
 
 
 	public String[] getStringArray(){
-		System.out.println(sNo + "");
+	    return new String[]{sNo+"",authorName,name,price+"",quantity+"",type};
 	}
 }

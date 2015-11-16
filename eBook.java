@@ -22,7 +22,6 @@ public class eBook extends Readable{ //CHANGE THIS TO EBook ROBERTOOO
 
 	@Override
 	public int getPrice(){
-		// override and only call the parent's constructor to get the base price.
-		// ask about what that means
+	    return (int)(price * 1.02);
 	}
 }

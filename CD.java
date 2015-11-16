@@ -10,11 +10,12 @@ public class CD extends Audio {
 	public CD(int sNo,String name, String artistName, int price, int quantity){
 		super(sNo,name,artistName,price,quantity);
 		type = "CD";
+                
 	}
 
     @Override
     public int getPrice(){
-	return price * 1.02;
+	return (int)(price * 1.02);
     }
 
 }
