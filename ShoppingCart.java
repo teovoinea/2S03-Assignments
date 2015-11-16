@@ -13,7 +13,7 @@ public class ShoppingCart extends User{
 		content = new ArrayList<>();
 		load(username);
 	}
-	public Item[] getContent(){
+	public ArrayList<Item> getContent(){
 		return content;
 	}
 	public void AddItem(Item b){
@@ -21,7 +21,7 @@ public class ShoppingCart extends User{
 	}
 	
 
-	void load(String username){
+	private void load(String username){
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("cart["+username + "].txt"));
@@ -34,19 +34,23 @@ public class ShoppingCart extends User{
 				Item item;
 				switch(split[5]){
 				case "MP3":
-					item = new MP3(split[0],split[1],split[2],split[3],split[4],split[5]);
+					item = new MP3(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
+					AddItem(item);
 					break;
 				case "CD":
-					item = new CD(split[0], split[1], split[2], split[3], split[4], split[5]);
+					item = new CD(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
+					AddItem(item);
 					break;
 				case "eBook":
-					item = new eBook(split[0],split[1],split[2],split[3],split[4],split[5]);
+					item = new eBook(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
+					AddItem(item);
 					break;
 				case "Book":
-					item = new Book(split[0],split[1],split[2],split[3],split[4],split[5]);
+					item = new Book(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
+					AddItem(item);
 					break;
 				}
-				AddItem(item);
+					
 			}
 			reader.close();		      
 		}catch (IOException e){
@@ -71,8 +75,9 @@ public class ShoppingCart extends User{
 	@Override
 	public String toString(){
 		String out = "";
-		for(int i = 0; i < content.length; i++){
-			out += content[i].toString() + '\n';
+		for(Item item: content){
+			ArrayList<String> list = item.toArray();
+			out += list.get(0) + "," + list.get(1) + "," + list.get(2) + "," + list.get(3) + "," + list.get(4) + "," + list.get(5) + "\n";
 		}
 		return out;
 	}

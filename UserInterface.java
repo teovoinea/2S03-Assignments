@@ -64,7 +64,8 @@ public class UserInterface{
 		System.out.println("Enter your username: ");
 		String username = scanner.nextLine();
 		if (users.contains(username)){
-			System.out.println("Hello, " + username);		    
+			System.out.println("Hello, " + username);
+			sc = new ShoppingCart(username);		    
 			user.setUsername(username);
 			P5();
 			return false;
@@ -252,7 +253,7 @@ public class UserInterface{
 		    
 		    while (line!=null) {
 			// Print read line
-			System.out.println(line);
+			//System.out.println(line);
 			stringlist.add(new ArrayList<String>(Arrays.asList(line.split(", "))));
 			// Read next line for while condition
 			line = reader.readLine();
