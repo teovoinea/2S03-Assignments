@@ -229,7 +229,7 @@ public class UserInterface{
 		System.out.println("Billing Information: ");
 	}
 	public static void init(){
-		//getAudioProducts();
+		getAudioProducts();
 		getReadables();
 	}
 	public static void getAudioProducts(){
