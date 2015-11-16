@@ -181,10 +181,10 @@ public class UserInterface{
 	public void P9(){
 		System.out.println("Audio: ");
 		System.out.println("");
-		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_artist, output_price, output_quantity, output_type);
-		/*for (Audio i : ac) {
+		System.out.format("%4s%32s%6s%10s%32s%5s\n", output_sno, output_name, output_artist, output_price+"", output_quantity+"", output_type);
+		for (Audio i : ac) {
 			ArrayList al = i.toArray();
-			System.out.format("%4s%32d%6d%10d%32d%5s",al.get(1), al.get(2), al.get(3), al.get(4), al.get(5));
+			System.out.format("%4s%32s%6s%10s%32s%5s\n",al.get(0)+"", al.get(1)+"", al.get(2)+"", al.get(3)+"", al.get(4)+"",al.get(5));
 		}
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
@@ -223,14 +223,14 @@ public class UserInterface{
 				e.printStackTrace();
 			}
 		}
-		*/
+		
 	}
 
 	public void P10(){
 		System.out.println("Billing Information: ");
 	}
 	public static void init(){
-		//getAudioProducts();
+		getAudioProducts();
 		getReadables();
 	}
 	public static void getAudioProducts(){

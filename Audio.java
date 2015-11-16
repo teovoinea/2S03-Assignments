@@ -34,6 +34,7 @@ public class Audio extends Item{
 	re.add(name);
 	re.add(price);
 	re.add(quantity);
+	re.add(type);
 	return re;
     }
 
