@@ -22,7 +22,7 @@ public class ReadableCollection extends ArrayList<Readable>{
 					     Integer.parseInt(stringList.get(i).get(4))));
 				eTax += 0.02;
 			}else if (stringList.get(i).get(5).equals("eBook")){
-				add(new eBook(Integer.parseInt(stringList.get(i).get(0)), 
+				add(new eBook(Integer.parseInt(stringList.get(i).get(0)),
 					     stringList.get(i).get(1) ,
 					     stringList.get(i).get(2),
 					     Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
