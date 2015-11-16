@@ -4,7 +4,6 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: File containing the item class
 */
-package eCommerce;
 
 public class CD extends Audio {
     

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class ReadableCollection extends ArrayList<Readable>{
 	double eTax = 1.00;
-	int totalPrice = 0;
 
 	public ReadableCollection(ArrayList<ArrayList<String>> stringList){
 		super();
@@ -30,7 +29,9 @@ public class ReadableCollection extends ArrayList<Readable>{
 		}
 	}
 
-	public float getTotalPrice(){
+
+	public int getTotalPrice(){
+		int totalPrice = 0;
 		for (int i = 0; i < size(); i++){
 			totalPrice += get(i).getPrice();
 		}

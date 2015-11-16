@@ -11,7 +11,7 @@ public class UserInterface{
 	private User user = new User();
 	private ShoppingCart sc = new ShoppingCart();
 	static private ReadableCollection rc;
-	//static private AudioCollection ac;
+	static private AudioCollection ac;
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> users;
 	private static String output_sno = "S.No";
@@ -112,15 +112,18 @@ public class UserInterface{
 		System.out.println("Press -1 to return to previous menu");
 		String input = scanner.nextLine();
 		if (input.equals("1")){
-			//readables
+			P8();
+			return false;
 		}
 		else if (input.equals("2")){
-			//audio
+			P9();
+			return false;
 		}
 		else if (input.equals("-1")){
 			//previous menu
-			P5();
+			return true;
 		}
+		return true;
 	}
 
 	public void P7(){
@@ -226,12 +229,18 @@ public class UserInterface{
 		System.out.println("Billing Information: ");
 	}
 	public static void init(){
-		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>(readFile("Books"));
-		readables.addAll(readFile("Ebooks"));
+		//getAudioProducts();
+		getReadables();
+	}
+	public static void getAudioProducts(){
 		ArrayList<ArrayList<String>> audio = new ArrayList<ArrayList<String>>(readFile("CDs"));
 		audio.addAll(readFile("MP3"));
-		rc = new ReadableCollection(readables);
 		ac = new AudioCollection(audio);
+	}
+	public static void getReadables(){
+		ArrayList<ArrayList<String>> readables = new ArrayList<ArrayList<String>>(readFile("Books"));
+		readables.addAll(readFile("Ebooks"));
+		rc = new ReadableCollection(readables);
 	}
 	public static ArrayList<ArrayList<String>> readFile(String type){
 		ArrayList<ArrayList<String>> stringlist = new ArrayList<ArrayList<String>>(); 
@@ -252,6 +261,7 @@ public class UserInterface{
         }catch (IOException e){
         	e.printStackTrace();
         }
+        return stringlist;
 	}
 	public ArrayList<String> readUser(){
 		ArrayList<String> lines = new ArrayList<String>();
@@ -260,6 +270,9 @@ public class UserInterface{
 			while ((line = br.readLine()) != null){
 				lines.add(line);
 			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
 		}
 		return lines;
 	}
