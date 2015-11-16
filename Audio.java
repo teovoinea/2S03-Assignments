@@ -5,9 +5,11 @@
 * Description: File containing the Audio Class
 */
 
+import java.util.ArrayList;
 public class Audio extends Item{
 
     protected String artistName;
+    protected String type;
 
     public Audio(int sNo,String name, String artistName, int price, int quantity){
         super(sNo,name,price,quantity);

@@ -8,7 +8,6 @@
 public class Audio extends Item{
 
     protected String artistName;
-    protected String name;
 
     public Audio(int sNo,String name, String artistName, int price, int quantity){
         super(sNo,name,price,quantity);
@@ -21,12 +20,19 @@ public class Audio extends Item{
     }
     
     @Override
-    public String[] getInfo(){
-	   return new String[]{sNo + "", artistName, price, name, quantity};
+    public String getInfo(){
+	return sNo + ": " + artistName + " - " + name;
     }
-
-    public int getListInfo(){
-	   return 0;
+    
+    @Override
+    public ArrayList toArray(){
+	ArrayList re = new ArrayList();
+	re.add(sNo);
+	re.add(artistName);
+	re.add(name);
+	re.add(price);
+	re.add(quantity);
+	return re;
     }
 
 }

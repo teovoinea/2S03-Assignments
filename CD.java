@@ -14,7 +14,7 @@ public class CD extends Audio {
 
     @Override
     public int getPrice(){
-	return price * 1.02;
+	return (int)(price * 1.02);
     }
 
 }

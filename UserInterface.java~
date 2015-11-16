@@ -64,9 +64,8 @@ public class UserInterface{
 		System.out.println("Enter your username: ");
 		String username = scanner.nextLine();
 		if (users.contains(username)){
-			System.out.println("Hello, " + username);		    
+			System.out.println("Hello Mr." + username);
 			user.setUsername(username);
-			P5();
 			return false;
 		}
 		else{
@@ -121,7 +120,7 @@ public class UserInterface{
 			return false;
 		}
 		else if (input.equals("-1")){
-		        P5();
+			//previous menu
 			return true;
 		}
 		return true;
@@ -134,10 +133,10 @@ public class UserInterface{
 	public void P8(){
 		System.out.println("Readables: ");
 		System.out.println("");
-		System.out.format("%4s%32s%6s%10s%32s%5s\n", output_sno, output_name, output_author, output_price, output_quantity, output_type);
+		System.out.format("%4s%32d%6d%10d%32d%5s", output_sno, output_name, output_author, output_price, output_quantity, output_type);
 		for (Readable i : rc) {
 			ArrayList al = i.toArray();
-			System.out.format("%4s%32s%6s%10s%32s%5s\n",al.get(0), al.get(1), al.get(2), al.get(3), al.get(4), al.get(5));
+			System.out.format("%4s%32d%6d%10d%32d%5s", al.get(1), al.get(2), al.get(3), al.get(4), al.get(5));
 		}
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
@@ -155,7 +154,7 @@ public class UserInterface{
 						for (int i = 0; i < qty; i++){
 							sc.AddItem(rc.get(num));
 						}
-						System.out.println(qty + " " + rc.get(num).toArray().get(1) + " " + "succesfully added to your cart.");
+						System.out.println(qty + " " + rc.get(num).toArray().get(3) + " " + "succesfully added to your cart.");
 						String next = scanner.nextLine();
 						if (next.equals("0")){
 							P10();
