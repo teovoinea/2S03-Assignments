@@ -22,6 +22,8 @@ public class ShoppingCart extends User{
 	
 
 	private void load(String username){
+		File file = new File("cart["+username+"].txt");
+		if(!file.exists())return;
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("cart["+username + "].txt"));
@@ -64,9 +66,11 @@ public class ShoppingCart extends User{
 			for(Item item : content){
 				ArrayList<String> list = item.toArray();
 				String line = list.get(0) + "," + list.get(1) + "," + list.get(2) + "," + list.get(3) + "," + list.get(4) + "," + list.get(5);
+				System.out.println(line);
 				writer.write(line + "\n");
 			}
 			writer.close();
+			System.out.println("SAVE");
 		}catch(IOException e){
 			e.printStackTrace();
 		}

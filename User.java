@@ -6,6 +6,7 @@
 */
 public class User{
 	private String username;
+ 
 	public void setUsername(String name){
 		username = name;
 	}

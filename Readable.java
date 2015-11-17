@@ -26,14 +26,13 @@ public class Readable extends Item {
 	}
 
 	@Override
-	public ArrayList toArray(){
-		ArrayList info = new ArrayList();
-		info.add(sNo);
-		info.add(authorName);
+	public ArrayList<String> toArray(){
+		ArrayList<String> info = new ArrayList<>();
+		info.add(sNo+"");
 		info.add(name);
-		info.add(price);
-		info.add(quantity);
-
+		info.add(authorName);
+		info.add(price+"");
+		info.add(quantity+"");
 		return info;
 	}
 }
