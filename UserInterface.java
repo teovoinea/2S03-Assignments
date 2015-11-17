@@ -206,14 +206,13 @@ public class UserInterface{
 					String quantity = scanner.nextLine();
 					try{
 						int qty = Integer.parseInt(quantity);
-						for(Audio a: ac){
-						    if (num == Integer.parseInt(a.toArray().get(0))){
-								for (int i = 0; i < qty; i++){
-								    sc.AddItem(a);
-								}
-						    }
-						}
-       					System.out.println(qty + " " + ac.get(num).toArray().get(2) + " " + "succesfully added to your cart.");
+						Audio audioA = ac.findBysNo(num);
+					    if (num == Integer.parseInt(audioA.toArray().get(0))){
+							for (int i = 0; i < qty; i++){
+							    sc.AddItem(audioA);
+							}
+					    }
+       					System.out.println(qty + " " + audioA.toArray().get(2) + " " + "succesfully added to your cart.");
 						sc.save(user.getUsername());
 						String next = scanner.nextLine();
 						if (next.equals("0")){

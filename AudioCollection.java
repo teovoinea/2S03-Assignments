@@ -36,4 +36,14 @@ public class AudioCollection extends ArrayList<Audio>{
 	return re;
     }
 
+    public Audio findBysNo(int sNo){
+        Audio audio = new Audio(-1,"", "", -1, -1);
+        for (Audio a : this){
+            if (sNo == a.sNo){
+                return a;
+            }
+        }
+        return audio;
+    }
+
 }

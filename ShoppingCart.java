@@ -63,7 +63,6 @@ public class ShoppingCart extends User{
 	public void save(String username){
 		try{
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cart["+username+"].txt"));
-			System.out.println(content.size());
 			for(Item item : content){
 				ArrayList<String> list = item.toArray();
 				String line = list.get(0) + ""; 
