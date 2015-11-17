@@ -17,7 +17,7 @@ public class Readable extends Item {
 	@Override
 	public String getInfo(){
 		// returns sNo,name, authorName, etc in a string
-		return sNo + ": " + authorName + " -  " + name;
+		return sNo + ": " + authorName + " - " + name;
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class Readable extends Item {
 
 	@Override
 	public ArrayList<String> toArray(){
-		ArrayList<String> info = new ArrayList<>();
-		info.add(sNo+"");
+		ArrayList<String> info = new ArrayList<String>();
+		info.add(sNo + "");
 		info.add(name);
 		info.add(authorName);
 		info.add(price+"");

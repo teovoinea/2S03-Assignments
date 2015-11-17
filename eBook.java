@@ -8,13 +8,13 @@ public class eBook extends Readable{ //CHANGE THIS TO EBook ROBERTOOO
 	}
 
 	@Override
-	public ArrayList toArray(){
-		ArrayList info = new ArrayList();
-		info.add(sNo);
+	public ArrayList<String> toArray(){
+		ArrayList<String> info = new ArrayList<String>();
+		info.add(sNo + "");
 		info.add(authorName);
 		info.add(name);
-		info.add(price);
-		info.add(quantity);
+		info.add(price+"");
+		info.add(quantity+"");
 		info.add(type);
 
 		return info;

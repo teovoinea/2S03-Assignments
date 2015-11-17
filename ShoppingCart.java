@@ -63,9 +63,15 @@ public class ShoppingCart extends User{
 	public void save(String username){
 		try{
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cart["+username+"].txt"));
+			System.out.println(content.size());
 			for(Item item : content){
 				ArrayList<String> list = item.toArray();
-				String line = list.get(0) + "," + list.get(1) + "," + list.get(2) + "," + list.get(3) + "," + list.get(4) + "," + list.get(5);
+				String line = list.get(0) + ""; 
+				line += "," + list.get(1).toString(); 
+				line += "," + list.get(2).toString(); 
+				line += "," + list.get(3).toString() + ",";
+				line += list.get(4).toString() + ",";
+				line += list.get(5).toString();
 				System.out.println(line);
 				writer.write(line + "\n");
 			}
@@ -81,7 +87,7 @@ public class ShoppingCart extends User{
 		String out = "";
 		for(Item item: content){
 			ArrayList<String> list = item.toArray();
-			out += list.get(0) + "," + list.get(1) + "," + list.get(2) + "," + list.get(3) + "," + list.get(4) + "," + list.get(5) + "\n";
+			out += list.get(0).toString() + "," + list.get(1).toString() + "," + list.get(2).toString() + "," + list.get(3).toString() + "," + list.get(4).toString() + "," + list.get(5).toString() + "\n";
 		}
 		return out;
 	}

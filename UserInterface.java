@@ -148,25 +148,19 @@ public class UserInterface{
 		}
 		else{
 			try{
-			    //Get the serial number of the item you want to purchase
-				int num = Integer.parseInt(input);										 
-				//check if the serial number inputted is within the bounds of our readables collection
-				if (num > 0 && num < rc.size()){
-				    //grab the quantity of the item the user wishes to purchase
+				int num = Integer.parseInt(input);
+				if (num > 0){
+					System.out.println("Enter the quanitity: ");
 					String quantity = scanner.nextLine();
 					try{
-					    //parse the int
 						int qty = Integer.parseInt(quantity);
-						//find the item based on serial number
-						for(Readable r: rc){
-						    if ((num+"").equals(r.toArray().get(0))){
-							//add quantity items to the cart
+					    Readable readA = rc.findBysNo(num);
+					    if (num == Integer.parseInt(readA.toArray().get(0))){
 							for (int i = 0; i < qty; i++){
-							    sc.AddItem(r);
+							    sc.AddItem(readA);
 							}
-						    }
-						}
-						System.out.println(qty + " " + rc.get(num).toArray().get(2) + " " + "succesfully added to your cart.");
+					    }
+       					System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
 						sc.save(user.getUsername());
 						String next = scanner.nextLine();
 						if (next.equals("0")){
@@ -207,18 +201,19 @@ public class UserInterface{
 		else{
 			try{
 				int num = Integer.parseInt(input);
-				if (num > 0 && num < rc.size()){
+				if (num > 0){
+					System.out.println("Enter the quanitity: ");
 					String quantity = scanner.nextLine();
 					try{
 						int qty = Integer.parseInt(quantity);
 						for(Audio a: ac){
-						    if ((num+"").equals(a.toArray().get(0))){
-							for (int i = 0; i < qty; i++){
-							    sc.AddItem(a);
-							}
+						    if (num == Integer.parseInt(a.toArray().get(0))){
+								for (int i = 0; i < qty; i++){
+								    sc.AddItem(a);
+								}
 						    }
 						}
-       						System.out.println(qty + " " + rc.get(num).toArray().get(2) + " " + "succesfully added to your cart.");
+       					System.out.println(qty + " " + ac.get(num).toArray().get(2) + " " + "succesfully added to your cart.");
 						sc.save(user.getUsername());
 						String next = scanner.nextLine();
 						if (next.equals("0")){

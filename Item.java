@@ -30,7 +30,7 @@ public abstract class Item{
 		this.quantity = quantity;
 	}
 
-	public abstract ArrayList toArray();
+	public abstract ArrayList<String> toArray();
 
 	// methods
 	public abstract String getInfo();

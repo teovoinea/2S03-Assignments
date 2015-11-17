@@ -38,4 +38,13 @@ public class ReadableCollection extends ArrayList<Readable>{
 		return totalPrice;
 	}
 
+	public Readable findBysNo(int sNo){
+		Readable read = new Readable(-1,"", "", -1, -1);
+		for (Readable r : this){
+			if (sNo == r.sNo){
+				return r;
+			}
+		}
+		return read;
+	}
 }
