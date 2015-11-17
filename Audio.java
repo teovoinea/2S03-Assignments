@@ -27,15 +27,15 @@ public class Audio extends Item{
     }
     
     @Override
-    public ArrayList<String> toArray(){
-	ArrayList<String> re = new ArrayList<>();
-	re.add(sNo+"");
-	re.add(name);
-	re.add(artistName);
-	re.add(price+"");
-	re.add(quantity+"");
-	re.add(type);
-	return re;
+    public ArrayList toArray(){
+    	ArrayList re = new ArrayList();
+    	re.add(sNo);
+    	re.add(artistName);
+    	re.add(name);
+    	re.add(price);
+    	re.add(quantity);
+    	re.add(type);
+    	return re;
     }
 
 }
