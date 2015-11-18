@@ -1,13 +1,3 @@
-1, XYZ, Java Rocks, 150, 10, Book
-1, XYZ, Java Rocks, 150, 10, Book
-1, XYZ, Java Rocks, 150, 10, Book
-8, FTHD, REF, 10, 5, MP3
-8, FTHD, REF, 10, 5, MP3
-3, ZZZ, Harry Potter All Vol., 200, 5, eBook
-3, ZZZ, Harry Potter All Vol., 200, 5, eBook
-3, ZZZ, Harry Potter All Vol., 200, 5, eBook
-3, ZZZ, Harry Potter All Vol., 200, 5, eBook
-1, Java Rocks, XYZ, 150, 10, Book
-1, ADF, Java you are in my heart, 100, 5, CD
-1, ADF, Java you are in my heart, 100, 5, CD
-1, ADF, Java you are in my heart, 100, 5, CD
+7,GHID,18/11/2015,1
+4,Twilight,18/11/2015,3
+5,Java you are in my heart,18/11/2015,1

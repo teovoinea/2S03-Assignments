@@ -241,7 +241,7 @@ public class UserInterface{
 
 	public void P10(){
 		System.out.println("Billing Information: ");
-		System.out.println("Name: Quantity: Price:");
+		System.out.format("%32s%10s%15s\n","Name: ", "Quantity: ", "Price: ");
 		ArrayList<Item> unique = new ArrayList<Item>();
 		unique.add(sc.getContent().get(0));
 

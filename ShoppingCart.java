@@ -6,6 +6,7 @@
 */
 import java.util.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 public class ShoppingCart extends User{
 	private ArrayList<Item> content;
 
@@ -40,31 +41,18 @@ public class ShoppingCart extends User{
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("cart["+username + "].txt"));
-			String line = reader.readLine();
-
-			while (line!=null) {
+			String line; 
+			while ((line = reader.readLine())!=null) {
 				// Read next line for while condition 
-				String[] split = line.split(", ");
+				String[] split = line.split(",");
 				Item item;
-				switch(split[5]){
-				case "MP3":
-					item = new MP3(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
-					AddItem(item);
-					break;
-				case "CD":
-					item = new CD(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
-					AddItem(item);
-					break;
-				case "eBook":
-					item = new eBook(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
-					AddItem(item);
-					break;
-				case "Book":
-					item = new Book(Integer.parseInt(split[0]),split[1],split[2],Integer.parseInt(split[3]),Integer.parseInt(split[4]));
-					AddItem(item);
-					break;
+				int sNo = Integer.parseInt(split[0]);
+				if(AudioCollection.instance.findBysNo(sNo) != null){
+					AddItem(AudioCollection.instance.findBysNo(sNo));
 				}
-				line = reader.readLine();	
+				else if(ReadableCollection.instance.findBysNo(sNo) != null){
+					AddItem(ReadableCollection.instance.findBysNo(sNo));
+				}								
 			}
 			reader.close();		      
 		}catch (IOException e){
@@ -75,16 +63,44 @@ public class ShoppingCart extends User{
 	public void save(String username){
 		try{
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cart["+username+"].txt"));
+			HashMap<String,Integer> amounts = new HashMap<>();
 			for(Item item : content){
 				ArrayList<String> list = item.toArray();
-				String line = list.get(0) + ""; 
+				if(amounts.containsKey(list.get(0))){
+					amounts.put(list.get(0),amounts.get(list.get(0)) + 1);					
+				}else{
+					amounts.put(list.get(0),1);					
+				}				
+				/*String line = list.get(0) + ""; 
 				line += ", " + list.get(1).toString(); 
 				line += ", " + list.get(2).toString(); 
 				line += ", " + list.get(3).toString();
 				line += ", " + list.get(4).toString();
-				line += ", " + list.get(5).toString();
+				line += ", " + list.get(5).toString();*/
+
+			}			
+			ArrayList<Item> unique = new ArrayList<Item>();
+			unique.add(content.get(0));
+
+			for (Item i : content){
+				boolean doAdd = true;
+				for (Item u : unique){
+					if (i.toArray().get(0).equals(u.toArray().get(0))){
+						doAdd = false;
+					}
+				}
+				if (doAdd){
+					unique.add(i);
+				}
+			}
+			for(Item i : unique){
+				ArrayList<String> list = i.toArray();
+				String line = list.get(0) + "," + list.get(2) + ",";
+				String date = (new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+				line += date + "," + amounts.get(list.get(0));	
 				System.out.println(line);
 				writer.write(line + "\n");
+			
 			}
 			writer.close();
 			System.out.println("SAVE");

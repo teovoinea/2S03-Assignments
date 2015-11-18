@@ -7,25 +7,27 @@
 import java.util.ArrayList;
 
 public class AudioCollection extends ArrayList<Audio>{
+	public static AudioCollection instance;
     double eTax = 1.00;
 
     public AudioCollection(ArrayList<ArrayList<String>> stringList){
-	super();
-	for (int i =0; i < stringList.size(); i++){
-	    if (stringList.get(i).get(5).equals("CD")){
-		add(new CD(Integer.parseInt(stringList.get(i).get(0)),
+		super();
+		instance = this;
+		for (int i =0; i < stringList.size(); i++){
+	    	if (stringList.get(i).get(5).equals("CD")){
+			add(new CD(Integer.parseInt(stringList.get(i).get(0)),
 			     stringList.get(i).get(1) ,
 			     stringList.get(i).get(2),
 			     Integer.parseInt(stringList.get(i).get(3)),
 			     Integer.parseInt(stringList.get(i).get(4))));
-		eTax += 0.02;
-	    }else if (stringList.get(i).get(5).equals("MP3")){
-		add(new MP3(Integer.parseInt(stringList.get(i).get(0)),
+			eTax += 0.02;
+	    	}else if (stringList.get(i).get(5).equals("MP3")){
+			add(new MP3(Integer.parseInt(stringList.get(i).get(0)),
 			     stringList.get(i).get(1) ,
 			     stringList.get(i).get(2),
 			     Integer.parseInt(stringList.get(i).get(3)),Integer.parseInt(stringList.get(i).get(4))));
-	    }
-	}
+	    	}
+		}
     }
 
     public int getPrice(){
@@ -44,7 +46,7 @@ public class AudioCollection extends ArrayList<Audio>{
                 return a;
             }
         }
-        return audio;
+        return null;
     }
 
 }

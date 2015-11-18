@@ -7,11 +7,12 @@
 import java.util.ArrayList;
 
 public class ReadableCollection extends ArrayList<Readable>{
+	public static ReadableCollection instance;
 	double eTax = 1.00;
 
 	public ReadableCollection(ArrayList<ArrayList<String>> stringList){
 		super();
-
+		instance = this;
 		for (int i =0; i < stringList.size(); i++){
 			if (stringList.get(i).get(5).equals("Book")){
 				add(new Book(Integer.parseInt(stringList.get(i).get(0)),
@@ -45,6 +46,6 @@ public class ReadableCollection extends ArrayList<Readable>{
 				return r;
 			}
 		}
-		return read;
+		return null;
 	}
 }
