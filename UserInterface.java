@@ -162,6 +162,7 @@ public class UserInterface{
 					    }
        					System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
 						sc.save(user.getUsername());
+						System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
 						String next = scanner.nextLine();
 						if (next.equals("0")){
 							P10();
@@ -214,6 +215,7 @@ public class UserInterface{
 					    }
        					System.out.println(qty + " " + audioA.toArray().get(2) + " " + "succesfully added to your cart.");
 						sc.save(user.getUsername());
+						System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
 						String next = scanner.nextLine();
 						if (next.equals("0")){
 							P10();
@@ -239,6 +241,26 @@ public class UserInterface{
 
 	public void P10(){
 		System.out.println("Billing Information: ");
+		System.out.println("Name: Quantity: Price:");
+		ArrayList<Item> unique = new ArrayList<Item>();
+		unique.add(sc.getContent().get(0));
+
+		for (Item i : sc.getContent()){
+			boolean doAdd = true;
+			for (Item u : unique){
+				if (i.toArray().get(0).equals(u.toArray().get(0))){
+					doAdd = false;
+				}
+			}
+			if (doAdd){
+				unique.add(i);
+			}
+		}
+
+		for (Item i: unique){
+			System.out.println(i.toArray().get(2) + " quantity: " + sc.itemCount(i.toArray().get(0)) + " Price " + i.toArray().get(3));
+		}
+
 	}
 	public static void init(){
 		getAudioProducts();

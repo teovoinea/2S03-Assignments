@@ -19,19 +19,31 @@ public class ShoppingCart extends User{
 	public void AddItem(Item b){
 		content.add(b);
 	}
+
+	public int itemCount(String sNo){
+		int count = 0;
+		for (int i = 0; i < content.size(); i++){
+			if (content.get(i).toArray().get(0).equals(sNo)){
+				count++;
+			}
+		}
+		return count;
+	}
 	
 
 	private void load(String username){
 		File file = new File("cart["+username+"].txt");
-		if(!file.exists())return;
+		if(!file.exists()){
+			System.out.println("here");
+			return;
+		}
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("cart["+username + "].txt"));
 			String line = reader.readLine();
 
 			while (line!=null) {
-				// Read next line for while condition
-				line = reader.readLine();
+				// Read next line for while condition 
 				String[] split = line.split(", ");
 				Item item;
 				switch(split[5]){
@@ -52,7 +64,7 @@ public class ShoppingCart extends User{
 					AddItem(item);
 					break;
 				}
-					
+				line = reader.readLine();	
 			}
 			reader.close();		      
 		}catch (IOException e){
@@ -66,11 +78,11 @@ public class ShoppingCart extends User{
 			for(Item item : content){
 				ArrayList<String> list = item.toArray();
 				String line = list.get(0) + ""; 
-				line += "," + list.get(1).toString(); 
-				line += "," + list.get(2).toString(); 
-				line += "," + list.get(3).toString() + ",";
-				line += list.get(4).toString() + ",";
-				line += list.get(5).toString();
+				line += ", " + list.get(1).toString(); 
+				line += ", " + list.get(2).toString(); 
+				line += ", " + list.get(3).toString();
+				line += ", " + list.get(4).toString();
+				line += ", " + list.get(5).toString();
 				System.out.println(line);
 				writer.write(line + "\n");
 			}
@@ -83,6 +95,8 @@ public class ShoppingCart extends User{
 
 	@Override
 	public String toString(){
+		System.out.println("Shopping Cart: ");
+		System.out.println("");
 		String out = "";
 		for(Item item: content){
 			ArrayList<String> list = item.toArray();
