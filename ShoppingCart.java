@@ -47,11 +47,14 @@ public class ShoppingCart extends User{
 				String[] split = line.split(",");
 				Item item;
 				int sNo = Integer.parseInt(split[0]);
+				int amnt = Integer.parseInt(split[3]);
 				if(AudioCollection.instance.findBysNo(sNo) != null){
-					AddItem(AudioCollection.instance.findBysNo(sNo));
+					for(int i = 0; i < amnt;i++)
+						AddItem(AudioCollection.instance.findBysNo(sNo));					
 				}
 				else if(ReadableCollection.instance.findBysNo(sNo) != null){
-					AddItem(ReadableCollection.instance.findBysNo(sNo));
+					for(int i = 0; i < amnt; i++)
+						AddItem(ReadableCollection.instance.findBysNo(sNo));
 				}								
 			}
 			reader.close();		      

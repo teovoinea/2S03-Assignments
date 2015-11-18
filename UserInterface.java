@@ -56,6 +56,17 @@ public class UserInterface{
 	public boolean P2(){
 		System.out.println("Choose your username: ");
 		String username = scanner.nextLine();
+		try{
+			BufferedWriter writer = new BufferedWriter(new FileWriter("Users.txt"));
+			for(String user : users){
+				writer.write(user + "\n");
+			}
+			writer.write(username);
+			writer.close();
+		}catch(IOException ex){
+			System.err.println(ex.getMessage());
+		}
+		users.add(username);		
 		//add username to file
 		System.out.println("Username succesfully added");
 		return true;
@@ -64,7 +75,7 @@ public class UserInterface{
 		System.out.println("Enter your username: ");
 		String username = scanner.nextLine();
 		if (users.contains(username)){
-			System.out.println("Hello, " + username);
+			System.out.println("Welcome, " + username);
 			sc = new ShoppingCart(username);    
 			user.setUsername(username);
 			P5();
@@ -241,7 +252,7 @@ public class UserInterface{
 
 	public void P10(){
 		System.out.println("Billing Information: ");
-		System.out.format("%32s%10s%15s\n","Name: ", "Quantity: ", "Price: ");
+		System.out.format("%-32s%-10s%-15s\n","Name: ", "Quantity: ", "Price: ");
 		ArrayList<Item> unique = new ArrayList<Item>();
 		unique.add(sc.getContent().get(0));
 
@@ -258,7 +269,7 @@ public class UserInterface{
 		}
 
 		for (Item i: unique){
-			System.out.println(i.toArray().get(2) + " quantity: " + sc.itemCount(i.toArray().get(0)) + " Price " + i.toArray().get(3) + "\n");
+			System.out.format("%-32s%-10d%-15s\n", i.toArray().get(2), sc.itemCount(i.toArray().get(0)),i.toArray().get(3));
 		}
 
 		double totalEnviroTax = 0;
@@ -270,7 +281,6 @@ public class UserInterface{
 			// DO WE USE DOUBLES OR NAH
 			// ALSO DO EBOOKS AND MP3S HAVE SHIPPING
 			double price = Double.parseDouble(i.toArray().get(3));
-			System.out.println(i.getPrice() + "vs" + price);
 			totalEnviroTax += i.getPrice() - price;
 			hst += price * 0.13;
 			if (i.toArray().get(5).equals("CD") || i.toArray().get(5).equals("Book")){
@@ -279,10 +289,11 @@ public class UserInterface{
 			total += price;
 		}
 		total += hst + shipping + totalEnviroTax;
-		System.out.println("Environment Tax  2%  " + totalEnviroTax + "\n");
-		System.out.println("HST   13%   " + hst);
-		System.out.println("Shipping  10%  "+ shipping);
-		System.out.println("Total:                " + total);
+		System.out.format("%32s%-10s%-15.02f\n","Environment Tax  ", "2%", totalEnviroTax);
+		System.out.format("%32s%-10s%-15.02f\n","HST  ", "13%", hst);
+		System.out.format("%32s%-10s%-15.02f\n","Shipping  ", "10%", shipping);
+		System.out.format("%32s%-10s%-15s\n","", "", "_________");		
+		System.out.format("%32s%-10s%-15.02f\n","Total  ", "", total);
 
 		System.out.println("Are you sure you want to pay? yes or no.");
 		String input = scanner.nextLine();
