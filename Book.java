@@ -11,9 +11,8 @@ public class Book extends Readable{
 	// this won't work cause 1.02 is a float
 	// maybe pass in price ?
 	//@Override
-	public int getPrice(float eTax){
-		//return 1.02 * price;
-		return (int) eTax * price;
+	public int getPrice(){
+		return (int) (1.02 * price);
 	}
 
 	public int getListInfo(){

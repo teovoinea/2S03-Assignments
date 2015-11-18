@@ -258,7 +258,41 @@ public class UserInterface{
 		}
 
 		for (Item i: unique){
-			System.out.println(i.toArray().get(2) + " quantity: " + sc.itemCount(i.toArray().get(0)) + " Price " + i.toArray().get(3));
+			System.out.println(i.toArray().get(2) + " quantity: " + sc.itemCount(i.toArray().get(0)) + " Price " + i.toArray().get(3) + "\n");
+		}
+
+		double totalEnviroTax = 0;
+		double hst = 0;
+		double shipping = 0;
+		double total = 0;
+		for (Item i: sc.getContent()){
+			// QUESTION TO ASK
+			// DO WE USE DOUBLES OR NAH
+			// ALSO DO EBOOKS AND MP3S HAVE SHIPPING
+			double price = Double.parseDouble(i.toArray().get(3));
+			System.out.println(i.getPrice() + "vs" + price);
+			totalEnviroTax += i.getPrice() - price;
+			hst += price * 0.13;
+			if (i.toArray().get(5).equals("CD") || i.toArray().get(5).equals("Book")){
+				shipping += price * 0.1;
+			}
+			total += price;
+		}
+		total += hst + shipping + totalEnviroTax;
+		System.out.println("Environment Tax  2%  " + totalEnviroTax + "\n");
+		System.out.println("HST   13%   " + hst);
+		System.out.println("Shipping  10%  "+ shipping);
+		System.out.println("Total:                " + total);
+
+		System.out.println("Are you sure you want to pay? yes or no.");
+		String input = scanner.nextLine();
+		if (input.toLowerCase().equals("yes")){
+			System.out.println("Confirmation ID: U1000");
+			System.out.println("Items shipped to: " + user.getUsername());
+		}
+		else{
+			System.out.println("YOU CHEAP FUCK");
+			//Console.write("shutdown -f");
 		}
 
 	}

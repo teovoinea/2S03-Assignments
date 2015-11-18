@@ -12,8 +12,10 @@ public class MP3 extends Audio{
 		type = "MP3";
 	}
 
+	/*
     public int getPrice(){
-	return super.getPrice();
+		return super.getPrice();
     }
+    */
 
 }

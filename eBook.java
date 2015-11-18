@@ -20,8 +20,10 @@ public class eBook extends Readable{ //CHANGE THIS TO EBook ROBERTOOO
 		return info;
 	}
 
+	/*
 	@Override
 	public int getPrice(){
-	    return (int)(price * 1.02);
+	    return price;
 	}
+	*/
 }

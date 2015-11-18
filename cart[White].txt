@@ -1,24 +1,13 @@
-2, XYZ, Python Sucks, 200, 20, Book
-2, XYZ, Python Sucks, 200, 20, Book
-2, XYZ, Python Sucks, 200, 20, Book
-1, Java Rocks, XYZ, 150, 10, Book
-1, Java Rocks, XYZ, 150, 10, Book
-4, Twilight, DSS, 250, 3, eBook
 1, XYZ, Java Rocks, 150, 10, Book
-1, Java Rocks, XYZ, 150, 10, Book
 1, XYZ, Java Rocks, 150, 10, Book
 1, XYZ, Java Rocks, 150, 10, Book
 8, FTHD, REF, 10, 5, MP3
-1, ADF, Java you are in my heart, 100, 5, CD
-1, ADF, Java you are in my heart, 100, 5, CD
-1, ADF, Java you are in my heart, 100, 5, CD
-1, ADF, Java you are in my heart, 100, 5, CD
-4, Twilight, DSS, 250, 3, eBook
-4, Twilight, DSS, 250, 3, eBook
-8, REF, FTHD, 10, 5, MP3
-8, REF, FTHD, 10, 5, MP3
-8, REF, FTHD, 10, 5, MP3
-8, REF, FTHD, 10, 5, MP3
+8, FTHD, REF, 10, 5, MP3
+3, ZZZ, Harry Potter All Vol., 200, 5, eBook
+3, ZZZ, Harry Potter All Vol., 200, 5, eBook
+3, ZZZ, Harry Potter All Vol., 200, 5, eBook
+3, ZZZ, Harry Potter All Vol., 200, 5, eBook
 1, Java Rocks, XYZ, 150, 10, Book
-1, XYZ, Java Rocks, 150, 10, Book
-1, XYZ, Java Rocks, 150, 10, Book
+1, ADF, Java you are in my heart, 100, 5, CD
+1, ADF, Java you are in my heart, 100, 5, CD
+1, ADF, Java you are in my heart, 100, 5, CD
