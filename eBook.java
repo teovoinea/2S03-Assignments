@@ -13,6 +13,21 @@ public class eBook extends Readable{ //CHANGE THIS TO EBook ROBERTOOO
 		type = "eBook";
 	}
 
+	@Override
+	public ArrayList<String> toArray(){
+		//create arraylist of string to store the variables
+		ArrayList<String> info = new ArrayList<String>();
+		//append all class attributes to the arraylist
+		info.add(sNo + "");
+		info.add(name);
+		info.add(authorName);
+		info.add(price+"");
+		info.add(quantity+"");
+		info.add(type);
+		//return arraylist of strings
+		return info;
+	}
+
 	/*
 	@Override
 	public int getPrice(){

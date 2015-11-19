@@ -63,7 +63,7 @@ public class HWK4_voineat{
 				ui.changeCurrentPage(5);
 			}else if (ui.getCurrentPage() == 8){
 				input = ui.P8();
-				if (input.equals("6")){
+				if (input.equals("-1")){
 					ui.changeCurrentPage(6);
 				}else{
 					next = ui.buyReadable(input);
@@ -76,7 +76,7 @@ public class HWK4_voineat{
 				}
 			}else if (ui.getCurrentPage() == 9){
 				input = ui.P9();
-				if (input.equals("6")){
+				if (input.equals("-1")){
 					ui.changeCurrentPage(6);
 				}else{
 					next = ui.buyAudio(input);

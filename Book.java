@@ -26,4 +26,21 @@ public class Book extends Readable{
 		//return the original price with envirotax added
 		return (int) (1.02 * price);
 	}
+
+	//return all the attributes of the audio object
+	//as an arraylist of string
+	@Override
+	public ArrayList<String> toArray(){
+		//create arraylist of string to store the variables
+		ArrayList<String> info = new ArrayList<String>();
+		//append all class attributes to the arraylist
+		info.add(sNo + "");
+		info.add(name);
+		info.add(authorName);
+		info.add(price+"");
+		info.add(quantity+"");
+		info.add(type);
+		//return arraylist of strings
+		return info;
+	}
 }
