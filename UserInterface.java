@@ -160,7 +160,7 @@ public class UserInterface{
 			try{
 				int num = Integer.parseInt(input);
 				if (num > 0){
-					System.out.println("Enter the quanitity: ");
+					System.out.println("Enter the quantity: ");
 					String quantity = scanner.nextLine();
 					try{
 						int qty = Integer.parseInt(quantity);
