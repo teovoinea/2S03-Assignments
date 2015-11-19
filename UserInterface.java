@@ -36,24 +36,14 @@ public class UserInterface{
 	}
 
 	//Sign in menu
-	public void P1(){
-		boolean loop = true;
-		while(loop){
-			System.out.println("1. Sign in");
-			System.out.println("2. Sign up");
-			System.out.println("Choose your option: ");
-			String input = scanner.nextLine();
-			if (input.equals("1")){
-				loop = P3();
-				changeCurrentPage(3);
-			}
-			else if (input.equals("2")){
-				loop = P2();
-				changeCurrentPage(2);
-			}
-		}
+	public String P1(){
+		System.out.println("1. Sign in");
+		System.out.println("2. Sign up");
+		System.out.println("Choose your option: ");
+		String input = scanner.nextLine();
+		return input;
 	}
-	public boolean P2(){
+	public void P2(){
 		System.out.println("Choose your username: ");
 		String username = scanner.nextLine();
 		try{
@@ -69,30 +59,20 @@ public class UserInterface{
 		users.add(username);		
 		//add username to file
 		System.out.println("Username succesfully added");
-		return true;
 	}
-	public boolean P3(){
+	public String P3(){
 		System.out.println("Enter your username: ");
 		String username = scanner.nextLine();
-		if (users.contains(username)){
-			System.out.println("Welcome, " + username);
-			sc = new ShoppingCart(username);    
-			user.setUsername(username);
-			P5();
-			return false;
-		}
-		else{
-			return P4();
-		}
+		return username;
 	}
-	public boolean P4(){
+	public void P4(){
 		System.out.println("");
 		System.out.println("No Access");
-		return true;
 	}
+	/*
 	public void P5(){
-		boolean loop = true;
-		while(loop){
+		boolean innerloop = true;
+		while(innerloop){
 			System.out.println("1. View Items By Category");
 			System.out.println("2. View Shopping Cart");
 			System.out.println("3. Sign Out");
@@ -101,22 +81,33 @@ public class UserInterface{
 			String input = scanner.nextLine();
 			if (input.equals("1")){
 				changeCurrentPage(6);
-				loop = P6();
+				innerloop = P6();
 			}
 			else if (input.equals("2")){
 				changeCurrentPage(7);
 				P7();
-				loop = true;
+				innerloop = true;
 			}
 			else if (input.equals("3")){
-				loop = false;
+				innerloop = false;
 				P1();
 				changeCurrentPage(1);
 			}
 		}
 	}
+	*/
 
-	public boolean P6(){
+	public String P5(){
+		System.out.println("1. View Items By Category");
+		System.out.println("2. View Shopping Cart");
+		System.out.println("3. Sign Out");
+		System.out.println("");
+		System.out.println("Choose your option");
+		String input = scanner.nextLine();
+		return input;
+	}
+
+	public String P6(){
 		System.out.println("1. Readables");
 		System.out.println("2. Audio");
 		System.out.println("");
@@ -124,26 +115,14 @@ public class UserInterface{
 		System.out.println("");
 		System.out.println("Press -1 to return to previous menu");
 		String input = scanner.nextLine();
-		if (input.equals("1")){
-			P8();
-			return false;
-		}
-		else if (input.equals("2")){
-			P9();
-			return false;
-		}
-		else if (input.equals("-1")){
-		        P5();
-			return true;
-		}
-		return true;
+		return input;
 	}
 
 	public void P7(){
 		System.out.println(sc.toString());
 	}
 
-	public void P8(){
+	public String P8(){
 		System.out.println("Readables: ");
 		System.out.println("");
 		System.out.format("%4s%32s%6s%10s%32s%5s\n", output_sno, output_name, output_author, output_price, output_quantity, output_type);
@@ -154,49 +133,10 @@ public class UserInterface{
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
 		String input = scanner.nextLine();
-		if (input.equals("-1")){
-			P6();
-		}
-		else{
-			try{
-				int num = Integer.parseInt(input);
-				if (num > 0){
-					System.out.println("Enter the quanitity: ");
-					String quantity = scanner.nextLine();
-					try{
-						int qty = Integer.parseInt(quantity);
-					    Readable readA = rc.findBysNo(num);
-					    if (num == Integer.parseInt(readA.toArray().get(0))){
-							for (int i = 0; i < qty; i++){
-							    sc.AddItem(readA);
-							}
-					    }
-       					System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
-						sc.save(user.getUsername());
-						System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
-						String next = scanner.nextLine();
-						if (next.equals("0")){
-							P10();
-						}
-						else if (next.equals("-2")){
-							P6();
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else{
-
-				}
-			}
-			catch (Exception e){
-				e.printStackTrace();
-			}
-		}
+		return input;
 	}
 	
-	public void P9(){
+	public String P9(){
 		System.out.println("Audio: ");
 		System.out.println("");
 		System.out.format("%4s%32s%6s%10s%32s%5s\n", output_sno, output_name, output_artist, output_price+"", output_quantity+"", output_type);
@@ -207,50 +147,10 @@ public class UserInterface{
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
 		String input = scanner.nextLine();
-		if (input.equals("-1")){
-			P6();
-		}
-		else{
-			try{
-				int num = Integer.parseInt(input);
-				if (num > 0){
-					System.out.println("Enter the quanitity: ");
-					String quantity = scanner.nextLine();
-					try{
-						int qty = Integer.parseInt(quantity);
-						Audio audioA = ac.findBysNo(num);
-					    if (num == Integer.parseInt(audioA.toArray().get(0))){
-							for (int i = 0; i < qty; i++){
-							    sc.AddItem(audioA);
-							}
-					    }
-       					System.out.println(qty + " " + audioA.toArray().get(2) + " " + "succesfully added to your cart.");
-						sc.save(user.getUsername());
-						System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
-						String next = scanner.nextLine();
-						if (next.equals("0")){
-							P10();
-						}
-						else if (next.equals("-2")){
-							P6();
-						}
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else{
-
-				}
-			}
-			catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-		
+		return input;
 	}
 
-	public void P10(){
+	public boolean P10(){
 		System.out.println("Billing Information: ");
 		System.out.format("%-32s%-10s%-15s\n","Name: ", "Quantity: ", "Price: ");
 		ArrayList<Item> unique = new ArrayList<Item>();
@@ -300,10 +200,11 @@ public class UserInterface{
 		if (input.toLowerCase().equals("yes")){
 			System.out.println("Confirmation ID: U1000");
 			System.out.println("Items shipped to: " + user.getUsername());
+			return true;
 		}
 		else{
-			System.out.println("YOU CHEAP FUCK");
-			//Console.write("shutdown -f");
+			System.out.println("Bye");
+			return false;
 		}
 
 	}
@@ -354,5 +255,84 @@ public class UserInterface{
 			e.printStackTrace();
 		}
 		return lines;
+	}
+	public String checkLogin(String username){
+		if (users.contains(username)){
+			System.out.println("Welcome, " + username);
+			sc = new ShoppingCart(username);    
+			user.setUsername(username);
+			return "5";
+		}
+		else{
+			return "4";
+		}
+	}
+
+	public String buyReadable(String input){
+		try{
+			int num = Integer.parseInt(input);
+			if (num > 0){
+				System.out.println("Enter the quanitity: ");
+				String quantity = scanner.nextLine();
+				try{
+					int qty = Integer.parseInt(quantity);
+				    Readable readA = rc.findBysNo(num);
+				    if (num == Integer.parseInt(readA.toArray().get(0))){
+						for (int i = 0; i < qty; i++){
+						    sc.AddItem(readA);
+						}
+				    }
+						System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
+					sc.save(user.getUsername());
+					System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
+					String next = scanner.nextLine();
+					return next;
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String buyAudio(String input){
+		try{
+			int num = Integer.parseInt(input);
+			if (num > 0){
+				System.out.println("Enter the quantity: ");
+				String quantity = scanner.nextLine();
+				try{
+					int qty = Integer.parseInt(quantity);
+					Audio audioA = ac.findBysNo(num);
+				    if (num == Integer.parseInt(audioA.toArray().get(0))){
+						for (int i = 0; i < qty; i++){
+						    sc.AddItem(audioA);
+						}
+				    }
+   					System.out.println(qty + " " + audioA.toArray().get(2) + " " + "succesfully added to your cart.");
+					sc.save(user.getUsername());
+					System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
+					String next = scanner.nextLine();
+					return next;
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
