@@ -1,41 +1,29 @@
+/*
+* Name: Nick Morrison, Roberto Temelkovski, Teodor Voinea
+* MacID: morrin2, temelkr, voineat
+* Student Number: 1426613, 1418731, 1409586
+* Description: File containing the Book class
+*/
+//import required utilities
 import java.util.*;
 
+//Book class scaffolding extending the readable parent class
 public class Book extends Readable{
+	//variable to store the type
 	String type;
 
+	//constructor for book taking in serial number, name, authorname, price, quantity
 	public Book(int sNo,String bookName, String authorName, int price, int quantity){
+		//call the super class with the required variables
 		super(sNo,bookName,authorName,price,quantity);
+		//update the type variable
 		type = "Book";
 	}
 
-	// this won't work cause 1.02 is a float
-	// maybe pass in price ?
-	//@Override
-	public int getPrice(){
-		return (int) (1.02 * price);
-	}
-
-	public int getListInfo(){
-		//Based on the value of Type(Book or eBook) print the list of Items
-		// What does that mean ?
-		return 0;
-	}
-
+	//override the abstract getPrice to include envirotax
 	@Override
-	public ArrayList<String> toArray(){
-		ArrayList<String> info = new ArrayList<String>();
-		info.add(sNo + "");
-		info.add(authorName);
-		info.add(name);
-		info.add(price + "");
-		info.add(quantity + "");
-		info.add(type);
-
-		return info;
-	}
-
-
-	public String[] getStringArray(){
-	    return new String[]{sNo+"",authorName,name,price+"",quantity+"",type};
+	public int getPrice(){
+		//return the original price with envirotax added
+		return (int) (1.02 * price);
 	}
 }

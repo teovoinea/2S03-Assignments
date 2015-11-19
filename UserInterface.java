@@ -1,10 +1,9 @@
 /*
-* Name: Nick Morrison, Roberto Temelkovski, Teo Voinea
+* Name: Nick Morrison, Roberto Temelkovski, Teodor Voinea
 * MacID: morrin2, temelkr, voineat
 * Student Number: 1426613, 1418731, 1409586
 * Description: File containing the UserInterface class
 */
-//TODO: P10, P6
 import java.util.*;
 import java.io.*;
 public class UserInterface{
@@ -133,7 +132,50 @@ public class UserInterface{
 		System.out.println("Choose your option: ");
 		System.out.println("Press -1 to return to previous menu.");
 		String input = scanner.nextLine();
+<<<<<<< HEAD
 		return input;
+=======
+		if (input.equals("-1")){
+			P6();
+		}
+		else{
+			try{
+				int num = Integer.parseInt(input);
+				if (num > 0){
+					System.out.println("Enter the quantity: ");
+					String quantity = scanner.nextLine();
+					try{
+						int qty = Integer.parseInt(quantity);
+					    Readable readA = rc.findBysNo(num);
+					    if (num == Integer.parseInt(readA.toArray().get(0))){
+							for (int i = 0; i < qty; i++){
+							    sc.AddItem(readA);
+							}
+					    }
+       					System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
+						sc.save(user.getUsername());
+						System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
+						String next = scanner.nextLine();
+						if (next.equals("0")){
+							P10();
+						}
+						else if (next.equals("-2")){
+							P6();
+						}
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+
+				}
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+>>>>>>> 96cc781063115bd174e42e4b8cc93b8249f3499d
 	}
 	
 	public String P9(){
