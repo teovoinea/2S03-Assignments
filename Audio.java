@@ -28,18 +28,18 @@ public class Audio extends Item{
         //return price variable
 	   return price;
     }
-    
+    /*
     //we should change this to ArrayList<String>
     @Override
     public String getInfo(){
 	   return sNo + ": " + artistName + " - " + name;
        //return toArray();
     }
-    
+    */
     //return all the attributes of the audio object
     //as an arraylist of strings
     @Override
-    public ArrayList<String> toArray(){
+    public ArrayList<String> getInfo(){
         //create arraylist of string to store the variables
     	ArrayList<String> re = new ArrayList<String>();
         //append all class attributes to the arraylist

@@ -21,12 +21,13 @@ public class Readable extends Item {
 	}
 
 	//we should change this to ArrayList<String>
-	@Override
+	/*@Override
 	public String getInfo(){
 		// returns sNo,name, authorName, etc in a string
 		return sNo + ": " + authorName + " - " + name;
 		//return toArray();
 	}
+	*/
 
 	//override the parent class function
 	@Override
@@ -35,10 +36,10 @@ public class Readable extends Item {
 		return price;
 	}
 
-	//return all the attributes of the audio object
+	//return all the attributes of the Readable object
 	//as an arraylist of string
 	@Override
-	public ArrayList<String> toArray(){
+	public ArrayList<String> getInfo(){
 		//create arraylist of string to store the variables
 		ArrayList<String> info = new ArrayList<String>();
 		//append all class attributes to the arraylist

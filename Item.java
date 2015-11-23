@@ -36,9 +36,9 @@ public abstract class Item{
 	}
 
 	//our own getInfo() function
-	public abstract ArrayList<String> toArray();
+	//public abstract ArrayList<String> toArray();
 
 	// methods
-	public abstract String getInfo();
+	public abstract ArrayList<String> getInfo();
 	public abstract int getPrice();
 }
