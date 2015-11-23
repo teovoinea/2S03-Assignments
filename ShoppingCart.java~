@@ -48,18 +48,22 @@ public class ShoppingCart extends User{
 				Item item;
 				try{
 				    int sNo = Integer.parseInt(split[0]);
-				    int amnt = Integer.parseInt(split[3]);
-				    if(AudioCollection.instance.findBysNo(sNo) != null){
-					    for(int i = 0; i < amnt;i++)
-						    AddItem(AudioCollection.instance.findBysNo(sNo));					
-				    }
-				    else if(ReadableCollection.instance.findBysNo(sNo) != null){
-					    for(int i = 0; i < amnt; i++)
-						    AddItem(ReadableCollection.instance.findBysNo(sNo));
-				    }
 				}catch(NumberFormatException ex){
-					System.err.println("Error parsing number while reading cart["+username+"].txt");
+				    System.err.println("Error parsing number \""+ split[0] + "\" while reading cart["+username+"].txt");
 				}
+				try{
+				    int amnt = Integer.parseInt(split[3]);
+				}catch(NumberFormatException ex){
+				    System.err.println("Error parsing number \"" + split[3] + "\" while reading cart["+username+"].txt");
+				}
+				if(AudioCollection.instance.findBysNo(sNo) != null){
+					for(int i = 0; i < amnt;i++)
+						AddItem(AudioCollection.instance.findBysNo(sNo));					
+				}
+				else if(ReadableCollection.instance.findBysNo(sNo) != null){
+					for(int i = 0; i < amnt; i++)
+						AddItem(ReadableCollection.instance.findBysNo(sNo));
+				}								
 			}
 			reader.close();		      
 		}catch (IOException e){

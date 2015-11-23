@@ -296,6 +296,7 @@ public class UserInterface{
 		    return stringlist; //return the contents of the file
 		}catch (IOException e){ //catch any IO Exceptions
 			System.err.println("Error reading file \"" + type + ".txt\"");//error handling
+			return null;
 		}
 		return stringlist; //if this return statement is reached, always returns null
 	}
