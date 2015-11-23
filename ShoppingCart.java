@@ -24,7 +24,7 @@ public class ShoppingCart extends User{
 	public int itemCount(String sNo){
 		int count = 0;
 		for (int i = 0; i < content.size(); i++){
-			if (content.get(i).toArray().get(0).equals(sNo)){
+			if (content.get(i).getInfo().get(0).equals(sNo)){
 				count++;
 			}
 		}
@@ -73,7 +73,7 @@ public class ShoppingCart extends User{
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cart["+username+"].txt"));
 			HashMap<String,Integer> amounts = new HashMap<>();
 			for(Item item : content){
-				ArrayList<String> list = item.toArray();
+				ArrayList<String> list = item.getInfo();
 				if(amounts.containsKey(list.get(0))){
 					amounts.put(list.get(0),amounts.get(list.get(0)) + 1);					
 				}else{
@@ -93,7 +93,7 @@ public class ShoppingCart extends User{
 			for (Item i : content){
 				boolean doAdd = true;
 				for (Item u : unique){
-					if (i.toArray().get(0).equals(u.toArray().get(0))){
+					if (i.getInfo().get(0).equals(u.getInfo().get(0))){
 						doAdd = false;
 					}
 				}
@@ -102,7 +102,7 @@ public class ShoppingCart extends User{
 				}
 			}
 			for(Item i : unique){
-				ArrayList<String> list = i.toArray();
+				ArrayList<String> list = i.getInfo();
 				String line = list.get(0) + "," + list.get(2) + ",";
 				String date = (new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 				line += date + "," + amounts.get(list.get(0));	
@@ -123,7 +123,7 @@ public class ShoppingCart extends User{
 		System.out.println("");
 		String out = "";
 		for(Item item: content){
-			ArrayList<String> list = item.toArray();
+			ArrayList<String> list = item.getInfo();
 			out += list.get(0).toString() + "," + list.get(1).toString() + "," + list.get(2).toString() + "," + list.get(3).toString() + "," + list.get(4).toString() + "," + list.get(5).toString() + "\n";
 		}
 		return out;
