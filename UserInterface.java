@@ -137,7 +137,7 @@ public class UserInterface{
 		//print the table header
 		System.out.format("%4s%-28s%-8s%-10s%32s%-5s\n", output_sno + "  ", output_name + "  ", output_author + "  ", output_price + "  ", output_quantity + "  ", output_type);
 		for (Readable i : rc) { //for each readable in the readable collection
-			ArrayList al = i.toArray(); //get the info of the current readable object
+			ArrayList al = i.getInfo(); //get the info of the current readable object
 			//Using string formatting to follow the table header above
 			//print the necessary information for the current item
 			System.out.format("%4s%-32s%-6s%10s%32s%5s\n",al.get(0) + "  ", al.get(1) + "  ", al.get(2) + "  ", al.get(3) + "  ", al.get(4) + "  ", al.get(5));
@@ -158,7 +158,7 @@ public class UserInterface{
 		//print the table header
 		System.out.format("%4s%-32s%-8s%-10s%32s%-5s\n", output_sno + "  ", output_name + "  ", output_artist + "  ", output_price+"  ", output_quantity+"  ", output_type);
 		for (Audio i : ac) { //for each audio in the audio collection
-			ArrayList al = i.toArray();//get the info of the current audio object
+			ArrayList al = i.getInfo();//get the info of the current audio object
 			//Using string formatting to follow the table header above
 			//print the necessary information for the current item
 			System.out.format("%4s%-32s%-6s%10s%32s%5s\n",al.get(0)+"  ", al.get(1)+"  ", al.get(2)+"  ", al.get(3)+"  ", al.get(4)+"  ",al.get(5));
@@ -187,7 +187,7 @@ public class UserInterface{
 			for (Item u : unique){ //foreach item in the previous declared unique arraylist
 				//check if the current shopping cart item
 				//has the same serial number as any element in the unique arraylist
-				if (i.toArray().get(0).equals(u.toArray().get(0))){
+				if (i.getInfo().get(0).equals(u.getInfo().get(0))){
 					//the item is not unique
 					doAdd = false;
 				}
@@ -199,14 +199,14 @@ public class UserInterface{
 		for (Item i: unique){ //for each unique item
 			//using string formatting to follow the table headers above
 			//print the current item's name, quantity and price
-			System.out.format("%-32s%-10d%-15s\n", i.toArray().get(2), sc.itemCount(i.toArray().get(0)),i.toArray().get(3));
+			System.out.format("%-32s%-10d%-15s\n", i.getInfo().get(2), sc.itemCount(i.getInfo().get(0)),i.getInfo().get(3));
 		}
 		double totalEnviroTax = 0; //store the total environment tax
 		double hst = 0; //store the total hst
 		double shipping = 0; //store the total shipping
 		double total = 0; //store the final total
 		for (Item i: sc.getContent()){ //foreach  item in the shopping cart
-			double price = Double.parseDouble(i.toArray().get(3)); //get the non modified (no enviro tax) price of the current item
+			double price = Double.parseDouble(i.getInfo().get(3)); //get the non modified (no enviro tax) price of the current item
 			//calculate the enviro tax if there is
 			//price variable stores the base cost of the item
 			//getPrice() function returns the price with envirotax if it applies, otherwise just returns the base price
@@ -215,7 +215,7 @@ public class UserInterface{
 			//this eliminates the need for an if statement
 			totalEnviroTax += i.getPrice() - price;
 			hst += price * 0.13; //calculate hst
-			if (i.toArray().get(5).equals("CD") || i.toArray().get(5).equals("Book")){ //if the item requires shipping
+			if (i.getInfo().get(5).equals("CD") || i.getInfo().get(5).equals("Book")){ //if the item requires shipping
 				shipping += price * 0.1; //calculate shipping
 			}
 			total += price; //calculate total price
@@ -341,7 +341,7 @@ public class UserInterface{
 				try{ //another try to catch any exceptions
 					int qty = Integer.parseInt(quantity); //cast quantity to an integer
 				    Readable readA = rc.findBysNo(num); //build readable by serial nu,ber
-				    if (num == Integer.parseInt(readA.toArray().get(0))){ //confirm it's the right object
+				    if (num == Integer.parseInt(readA.getInfo().get(0))){ //confirm it's the right object
 						if (qty > 0){//check the quantity is right, also need to check if we have enough
 							for (int i = 0; i < qty; i++){ //add qty of the same item to the shopping cart
 							    sc.AddItem(readA); //add item to the shopping cart
@@ -349,7 +349,7 @@ public class UserInterface{
 						}
 				    }
 				    //print the item was added to the shopping cart
-					System.out.println(qty + " " + readA.toArray().get(2) + " " + "succesfully added to your cart.");
+					System.out.println(qty + " " + readA.getInfo().get(2) + " " + "succesfully added to your cart.");
 					//save the user's cart
 					sc.save(user.getUsername());
 					//prompt the user for input
@@ -382,7 +382,7 @@ public class UserInterface{
 				try{ //try to purchase quantity items
 					int qty = Integer.parseInt(quantity); //parse quantity to int
 					Audio audioA = ac.findBysNo(num); //create audio object using find by serial number
-				    if (num == Integer.parseInt(audioA.toArray().get(0))){ //check if it's the right object
+				    if (num == Integer.parseInt(audioA.getInfo().get(0))){ //check if it's the right object
 				    	if (qty > 0){ //check if qty is right, should also check if we have enough
 							for (int i = 0; i < qty; i++){//add item to shopping cart qty times
 							    sc.AddItem(audioA); //add item to shopping cart
@@ -390,7 +390,7 @@ public class UserInterface{
 				    	}
 				    }
 				    //print the action was done succesfully
-   					System.out.println(qty + " " + audioA.toArray().get(2) + " " + "succesfully added to your cart.");
+   					System.out.println(qty + " " + audioA.getInfo().get(2) + " " + "succesfully added to your cart.");
 					sc.save(user.getUsername()); //save the user's shopping cart
 					//prompt the user for input
 					System.out.println("Press -2 to Continue Shopping or Press 0 to CheckOut: ");
