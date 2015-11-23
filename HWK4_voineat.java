@@ -64,6 +64,7 @@ public class HWK4_voineat{ // main class
 					ui.changeCurrentPage(6); // go back a page
 				}else{ // if not -1
 					next = ui.buyReadable(input); // get input from buyReadable
+					if(next == null)continue;
 					if (next.equals("0")){ // if input is 0
 						ui.changeCurrentPage(10); // go to checkout page
 					}else if (next.equals("-2")){ // if input is -2
@@ -76,6 +77,7 @@ public class HWK4_voineat{ // main class
 					ui.changeCurrentPage(6); // go to previous page
 				}else{ // if not -1
 					next = ui.buyAudio(input); // get input for next page
+					if(next == null)continue;
 					if (next.equals("0")){ // if 0
 						ui.changeCurrentPage(10); // go to checkout
 					} // close 

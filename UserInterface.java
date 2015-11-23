@@ -339,8 +339,12 @@ public class UserInterface{
 				System.out.println("Enter the quantity: "); //prompt user for quantity
 				String quantity = scanner.nextLine(); //grab the user input
 				try{ //another try to catch any exceptions
-					int qty = Integer.parseInt(quantity); //cast quantity to an integer
+				    int qty = Integer.parseInt(quantity); //cast quantity to an integer
 				    Readable readA = rc.findBysNo(num); //build readable by serial nu,ber
+				    if(readA == null){
+					System.err.println("Unable to find item with serial number: " + num);
+					return "-1";
+				    }
 				    if (num == Integer.parseInt(readA.getInfo().get(0))){ //confirm it's the right object
 						if (qty > 0){//check the quantity is right, also need to check if we have enough
 							for (int i = 0; i < qty; i++){ //add qty of the same item to the shopping cart
@@ -382,6 +386,10 @@ public class UserInterface{
 				try{ //try to purchase quantity items
 					int qty = Integer.parseInt(quantity); //parse quantity to int
 					Audio audioA = ac.findBysNo(num); //create audio object using find by serial number
+					if(audioA == null){
+					    System.err.println("Unable to find item with serial number: " + num);
+					    return "-1";
+					}
 				    if (num == Integer.parseInt(audioA.getInfo().get(0))){ //check if it's the right object
 				    	if (qty > 0){ //check if qty is right, should also check if we have enough
 							for (int i = 0; i < qty; i++){//add item to shopping cart qty times
