@@ -35,9 +35,6 @@ public abstract class Item{
 		this.quantity = quantity;
 	}
 
-	//our own getInfo() function
-	//public abstract ArrayList<String> toArray();
-
 	// methods
 	public abstract ArrayList<String> getInfo();
 	public abstract int getPrice();

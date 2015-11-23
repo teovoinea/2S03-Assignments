@@ -19,16 +19,7 @@ public class Readable extends Item {
 		//update the artist name
 		this.authorName = authorName;
 	}
-
-	//we should change this to ArrayList<String>
-	/*@Override
-	public String getInfo(){
-		// returns sNo,name, authorName, etc in a string
-		return sNo + ": " + authorName + " - " + name;
-		//return toArray();
-	}
-	*/
-
+	
 	//override the parent class function
 	@Override
 	public int getPrice(){
