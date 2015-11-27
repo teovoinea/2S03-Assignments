@@ -5,8 +5,7 @@
 * Description: File containing the Main class
 */
 #include <iostream>
-using std namespace;
+using namespace std;
 int main(){
-	cout << "Test";
-	return 0;
+	cout << "Test" << endl;
 }
