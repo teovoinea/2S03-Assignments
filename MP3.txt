@@ -1,2 +1,0 @@
-7, GHID, CDF, 20, 5, MP3
-8, FTHD, REF, 10, 5, MP3
