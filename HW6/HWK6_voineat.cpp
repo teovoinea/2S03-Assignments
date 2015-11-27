@@ -5,6 +5,11 @@
 * Description: File containing the Main class
 */
 #include <iostream>
+#include "ArithmeticExpression.h"
+#include "Addition.h"
+#include "Subtraction.h"
+#include "Multiplication.h"
+#include "Division.h"
 using namespace std;
 int main(){
 	cout << "Test" << endl;
