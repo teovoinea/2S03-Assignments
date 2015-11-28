@@ -6,16 +6,17 @@
 */
 #include <iostream>;
 #include "Expression.h"
+#include <string>
 using namespace std;
-Expression:Expression(){
+Expression::Expression(){
 
 }
 
-virtual string Expression:evaluate(){
+virtual string Expression::evaluate(){
 	string test = "This returns a string";
 	return test;
 }
 
-virtual void Expression:print(){
+virtual void Expression::print(){
 	cout << "This prints something" << endl;
 }

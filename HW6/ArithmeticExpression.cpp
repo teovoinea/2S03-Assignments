@@ -7,20 +7,21 @@
 #include <iostream>
 #include "ArithmeticExpression.h"
 #include "Expression.h"
+#include <string>
 using namespace std;
-ArithmeticExpression:ArithmeticExpression(){
+ArithmeticExpression::ArithmeticExpression(){
 	
 }
 Expression *left;
 Expression *right;
-string ArithmeticExpression:evaluate(){
+string ArithmeticExpression::evaluate(){
 	string s = "This is a string";
 	return s;
 }
-void ArithmeticExpression:print(){
+void ArithmeticExpression::print(){
 	cout << "This should print something" << endl;
 }
-float ArithmeticExpression:convert(string s){
+float ArithmeticExpression::convert(string s){
 	float f = 3.14;
 	return f;
 }

@@ -6,6 +6,7 @@
 */
 #ifndef SUBTRACTION_H
 #include <string>
+#include "ArithmeticExpression.h"
 class Subtraction : public ArithmeticExpression{
 	private:
 

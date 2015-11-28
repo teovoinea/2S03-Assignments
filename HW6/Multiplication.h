@@ -6,6 +6,7 @@
 */
 #ifndef MULTIPLICATION_H
 #include <string>
+#include "ArithmeticExpression.h"
 class Multiplication : public ArithmeticExpression{
 	private:
 

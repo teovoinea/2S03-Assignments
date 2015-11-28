@@ -7,14 +7,15 @@
 #include "Addition.h"
 #include "ArithmeticExpression.h"
 #include <iostream>
+#include <string>
 using namespace std;
-Addition:Addition(){
+Addition::Addition(){
 
 }
-string Addition:evaluate(){
+string Addition::evaluate(){
 	string s = "This is a string";
 	return s;
 }
-void Addition:print(){
+void Addition::print(){
 	cout << "This is going to print something" << endl;
 }

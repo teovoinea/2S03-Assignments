@@ -7,13 +7,14 @@
 #include <iostream>
 #include "ArithmeticExpression.h"
 #include "Multiplication.h"
-Multiplication:Multiplication(){
+#include <string>
+Multiplication::Multiplication(){
 
 }
-string Multiplication:evaluate(){
-	String s = "This is a string";
+string Multiplication::evaluate(){
+	string s = "This is a string";
 	return s;
 }
-void Multiplication:print(){
+void Multiplication::print(){
 	cout << "This will print something" << endl;
 }

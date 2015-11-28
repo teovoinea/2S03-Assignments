@@ -6,6 +6,7 @@
 */
 #ifndef DIVISION_H
 #include <string>
+#include "ArithmeticExpression.h"
 class Division : public ArithmeticExpression{
 	private:
 

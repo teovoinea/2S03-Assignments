@@ -6,6 +6,7 @@
 */
 #ifndef ADDITION_H
 #include <string>
+#include "ArithmeticExpression.h"
 class Addition : public ArithmeticExpression{
 	private:
 

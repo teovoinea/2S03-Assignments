@@ -5,16 +5,17 @@
 * Description: File containing the Division class
 */
 #include <iostream>
-#include "ArtithmeticExpression.h"
+#include "ArithmeticExpression.h"
 #include "Division.h"
+#include <string>
 using namespace std;
-Division:Division(){
+Division::Division(){
 
 }
-string Division:evaluate(){
-	String s = "This is a string";
+string Division::evaluate(){
+	string s = "This is a string";
 	return s;
 }
-void Division:print(){
+void Division::print(){
 	cout << "This will print something" << endl;
 }
