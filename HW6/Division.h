@@ -5,6 +5,8 @@
 * Description: Division header file
 */
 #ifndef DIVISION_H
+#define DIVISION_H
+
 #include <string>
 #include "ArithmeticExpression.h"
 class Division : public ArithmeticExpression{

@@ -5,6 +5,8 @@
 * Description: Arithmetic Expression header file
 */
 #ifndef ARITHMETICEXPRESSION_H
+#define ARITHMETICEXPRESSION_H
+
 #include "Expression.h"
 #include <string>
 class ArithmeticExpression : public Expression{

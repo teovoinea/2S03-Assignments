@@ -5,6 +5,8 @@
 * Description: Expression heeader file
 */
 #ifndef EXPRESSION_H
+#define EXPRESSION_H
+
 #include <string>
 class Expression{
 	private:

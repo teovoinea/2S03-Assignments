@@ -5,6 +5,8 @@
 * Description: Subtraction header file
 */
 #ifndef SUBTRACTION_H
+#define SUBTRACTION_H
+
 #include <string>
 #include "ArithmeticExpression.h"
 class Subtraction : public ArithmeticExpression{

@@ -5,10 +5,10 @@
 * Description: File containing the Main class
 */
 #include <iostream>
-#include "Addition.cpp"
-#include "Subtraction.cpp"
-#include "Multiplication.cpp"
-#include "Division.cpp"
+#include "Addition.h"
+#include "Subtraction.h"
+#include "Multiplication.h"
+#include "Division.h"
 using namespace std;
 int main(){
 	cout << "Test" << endl;

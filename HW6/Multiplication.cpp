@@ -8,6 +8,8 @@
 #include "ArithmeticExpression.h"
 #include "Multiplication.h"
 #include <string>
+
+using namespace std;
 Multiplication::Multiplication(){
 
 }

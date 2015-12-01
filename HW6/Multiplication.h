@@ -5,6 +5,8 @@
 * Description: Multiplication header file
 */
 #ifndef MULTIPLICATION_H
+#define MULTIPLICATION_H
+
 #include <string>
 #include "ArithmeticExpression.h"
 class Multiplication : public ArithmeticExpression{

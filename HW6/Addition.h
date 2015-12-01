@@ -5,11 +5,11 @@
 * Description: Addition header file
 */
 #ifndef ADDITION_H
+#define ADDITION_H
+
 #include <string>
 #include "ArithmeticExpression.h"
 class Addition : public ArithmeticExpression{
-	private:
-
 	public:
 		Addition();
 		std::string evaluate();
