@@ -5,6 +5,7 @@ all: HWK6_voineat
 
 HWK6_voineat: $(OBJS)
 	g++ -o $@ $?
+	./HWK6_voineat
 .cpp.o:
 	$(CXX) -c $<
 clean:
