@@ -12,7 +12,7 @@
 class Addition : public ArithmeticExpression{
 	public:
 		Addition();
-		std::string evaluate();
+		std::string evaluate(std::string input);
 		void print();
 
 };

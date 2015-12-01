@@ -14,7 +14,7 @@ class Multiplication : public ArithmeticExpression{
 
 	public:
 		Multiplication();
-		std::string evaluate();
+		std::string evaluate(std::string input);
 		void print();
 };
 #endif

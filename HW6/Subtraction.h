@@ -14,7 +14,7 @@ class Subtraction : public ArithmeticExpression{
 
 	public:
 		Subtraction();
-		std::string evaluate();
+		std::string evaluate(std::string input);
 		void print();
 };
 #endif
