@@ -13,10 +13,12 @@
 #include <sstream>
 using namespace std;
 int main(){
+	//Get input
 	cout << "Please enter an expression: ";
 	string input;
 	getline(cin, input);
 	string output = "0";
+	/***************Currently, everything needs to be wrapped in brackets***************/
 
 
 	//Get the left side of the equation
