@@ -37,20 +37,21 @@ int main(){
 	input = no_space;
 
 	//vector<string> split_string = split(input);	
-	string final_out = calculate(input);
+	//string final_out = calculate(input);
 	/*
 	if (right_end_index != input.length()){
 		cout << "The end of the right hand side is not the end of the expression." << endl;
 	}*/
 
 
-	cout << "The left hand side is: " << remove_brackets(split_string[0]) << endl;
-	cout << "The operator between sides is: " << split_string[1] << endl;
-	cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
+	//cout << "The left hand side is: " << remove_brackets(split_string[0]) << endl;
+	//cout << "The operator between sides is: " << split_string[1] << endl;
+	//cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
 	//output
 	cout << input << " = " << output << endl;
 }
 
+/*
 string caluclate(string input){
 	vector<string> split_string = split(input);
 	double total = 0;
@@ -139,7 +140,7 @@ string caluclate(string input){
 		}
 		return store_return;	
 	}
-}
+}*/
 
 string remove_brackets(string input){
 	string no_brackets = "";

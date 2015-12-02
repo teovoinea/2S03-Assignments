@@ -8,6 +8,7 @@
 #include "ArithmeticExpression.h"
 #include "Division.h"
 #include <string>
+#include <sstream>
 using namespace std;
 Division::Division(){
 
@@ -28,8 +29,12 @@ string Division::evaluate(string input){
 	for(int i = sign_index + 1; i < input.length(); i++){
 		s2 += input[i];
 	}
-	double value = stod(s1) / stod(s2);
-	return to_string(value);
+	double value1 = 0;
+	double value2 = 0;
+	std::istringstream(s1) >> value1;
+	std::istringstream(s2) >> value2;
+	double value = value1 / value2;
+	return std::to_string(value);
 }
 void Division::print(){
 	cout << "This will print something" << endl;
