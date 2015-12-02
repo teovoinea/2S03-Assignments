@@ -20,6 +20,7 @@ string calculate(string input);
 double evaluate(string expression);
 double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
+void breakDown(string expression, std::stack<double> &values, std::stack<char> &ops, int iteration = 0);
 string remove_brackets(string input);
 vector<string> split(string input);
 //string calculate(string input);
@@ -63,56 +64,62 @@ int main(){
 	cout << output << endl;
 }
 
+void breakDown(string expression, std::stack<double> &values, std::stack<char> &ops, int iteration){
+  if(iteration >= expression.length()) return;
+  int i = iteration;
+  cout << "expression " << expression[i] << endl;
+  if (expression[i] == ' '){
+    breakDown(expression,values,ops,i+1);
+    return;
+  }
+  if (expression[i] >= '0' && expression[i] <= '9'){
+    string num = "";
+    while(i < expression.length() && expression[i] >= '0' && expression[i] <= '9'){
+      num += expression[i];
+      i++;
+    }
+    double d = 0;
+    std::istringstream(num) >> d;
+    values.push(d);
+  }
+  if(expression[i] == '('){
+    ops.push(expression[i]);
+    
+  }
+  if(expression[i] == ')'){
+    while(ops.top() != '('){
+      double p1 = values.top();
+      values.pop();
+      double p2 = values.top();
+      values.pop();
+      char c1 = ops.top();
+      ops.pop();
+      double returnVal = applyOp(c1, p1, p2);
+      values.push(returnVal); //error
+    }
+    ops.pop();
+  }
+  if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
+    while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
+      double p1 = values.top();
+      values.pop();
+      double p2 = values.top();
+      values.pop();
+      char c1 = ops.top();
+      ops.pop();
+      double returnVal = applyOp(c1, p1, p2);
+      values.push(returnVal); //error
+    }
+    ops.push(expression[i]);
+  }
+  breakDown(expression,values,ops,i+1);
+}
+
 double evaluate(string expression){
 	std::stack<double> values;
 	std::stack<char> ops;
-
-	for (int i = 0; i < expression.length(); i++){
-		cout << "expression " << expression[i] << endl;
-		if (expression[i] == ' '){
-			continue;
-		}
-		if (expression[i] >= '0' && expression[i] <= '9'){
-			string num = "";
-			while(i < expression.length() && expression[i] >= '0' && expression[i] <= '9'){
-				num += expression[i];
-				i++;
-			}
-			double d = 0;
-			std::istringstream(num) >> d;
-			values.push(d);
-		}
-		if(expression[i] == '('){
-			ops.push(expression[i]);
-
-		}
-		if(expression[i] == ')'){
-			while(ops.top() != '('){
-				double p1 = values.top();
-				values.pop();
-				double p2 = values.top();
-				values.pop();
-				char c1 = ops.top();
-				ops.pop();
-				double returnVal = applyOp(c1, p1, p2);
-				values.push(returnVal); //error
-			}
-			ops.pop();
-		}
-		if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
-			while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
-				double p1 = values.top();
-				values.pop();
-				double p2 = values.top();
-				values.pop();
-				char c1 = ops.top();
-				ops.pop();
-				double returnVal = applyOp(c1, p1, p2);
-				values.push(returnVal); //error
-			}
-			ops.push(expression[i]);
-		}
-	}
+  breakDown(expression,values,ops);
+	
 	while(!ops.empty()){
 		double p1 = values.top();
 		values.pop();
