@@ -10,21 +10,24 @@
 #include "Subtraction.h"
 #include "Multiplication.h"
 #include "Division.h"
+#include <stdio.h>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <stack>
 using namespace std;
+string calculate(string input);
 double evaluate(string expression);
 double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
 vector<string> split(string input);
 //string calculate(string input);
-Addition add(); //Addition().evaluate("3+4") -> "7.0000"
-Subtraction sub();
-Multiplication mul();
-Division div();
+Addition add = Addition(); //Addition().evaluate("3+4") -> "7.0000"
+Subtraction sub = Subtraction();
+Multiplication mul = Multiplication();
+Division divide = Division();
+
 int main(){
 	//Get input
 	cout << "Please enter an expression: ";
@@ -56,6 +59,8 @@ int main(){
 	//cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
 	//output
 	cout << input << " = " << output << endl;
+	output = calculate(input);
+	cout << output << endl;
 }
 
 double evaluate(string expression){
@@ -63,22 +68,25 @@ double evaluate(string expression){
 	std::stack<char> ops;
 
 	for (int i = 0; i < expression.length(); i++){
+		cout << "expression " << expression[i] << endl;
 		if (expression[i] == ' '){
 			continue;
 		}
 		if (expression[i] >= '0' && expression[i] <= '9'){
 			string num = "";
 			while(i < expression.length() && expression[i] >= '0' && expression[i] <= '9'){
-				num += expression[i++];
+				num += expression[i];
+				i++;
 			}
 			double d = 0;
 			std::istringstream(num) >> d;
 			values.push(d);
 		}
-		else if(expression[i] == '('){
+		if(expression[i] == '('){
 			ops.push(expression[i]);
+
 		}
-		else if(expression[i] == ')'){
+		if(expression[i] == ')'){
 			while(ops.top() != '('){
 				double p1 = values.top();
 				values.pop();
@@ -86,11 +94,12 @@ double evaluate(string expression){
 				values.pop();
 				char c1 = ops.top();
 				ops.pop();
-				values.push(applyOp(c1, p1, p2)); //error
+				double returnVal = applyOp(c1, p1, p2);
+				values.push(returnVal); //error
 			}
 			ops.pop();
 		}
-		else if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
+		if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
 			while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
 				double p1 = values.top();
 				values.pop();
@@ -98,7 +107,8 @@ double evaluate(string expression){
 				values.pop();
 				char c1 = ops.top();
 				ops.pop();
-				values.push(applyOp(c1, p1, p2)); //error
+				double returnVal = applyOp(c1, p1, p2);
+				values.push(returnVal); //error
 			}
 			ops.push(expression[i]);
 		}
@@ -110,7 +120,8 @@ double evaluate(string expression){
 		values.pop();
 		char c1 = ops.top();
 		ops.pop();
-		values.push(applyOp(c1, p1, p2)); //error
+		double returnVal = applyOp(c1, p1, p2);
+		values.push(returnVal); //error
 	}
 	
 	double v = values.top();
@@ -135,24 +146,24 @@ double applyOp(char op, double b, double a){
 	s += std::to_string(a);
 	s += op;
 	s += std::to_string(b);
-	cout << s << endl;
+	//cout << s << endl;
 	string r = "";
 	double res = 0;
 	switch(op){
 		case '+':
-			r = Addition().evaluate(s);
+			r = add.evaluate(s);
 			std::istringstream(r) >> res;
 			return res;
 		case '-':
-			r = Subtraction().evaluate(s);
+			r = sub.evaluate(s);
 			std::istringstream(r) >> res;
 			return res;
 		case '*':
-			r = Multiplication().evaluate(s);
+			r = mul.evaluate(s);
 			std::istringstream(r) >> res;
 			return res;
 		case '/':
-			r = Division().evaluate(s);
+			r = divide.evaluate(s);
 			std::istringstream(r) >> res;
 			return res;
 		default:
@@ -161,96 +172,96 @@ double applyOp(char op, double b, double a){
 	return 0;
 }
 
-/*
-string caluclate(string input){
+
+string calculate(string input){
 	vector<string> split_string = split(input);
 	double total = 0;
 	string store_return = "";
 	//if true -> no brackets on either left AND right hand side, can directly be solved
 	if (remove_brackets(split_string[0]) == split_string[0] && remove_brackets(split_string[2]) == split_string[2]){
 		//check what operation it is
-		if (split_string[1] == '+'){
+		if (split_string[1] == "+"){
 			//pass in whole string eg: 3+4
-			store_return = add::evaluate(split_string[0] + split_string[1] + split_string[2]);
+			store_return = add.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '-'){
+		if (split_string[1] == "-"){
 			//pass in whole string eg: 3-4
-			store_return = sub::evaluate(split_string[0] + split_string[1] + split_string[2]);
+			store_return = sub.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '('){
+		if (split_string[1] == "("){
 			//pass in whole string eg: 3*4
-			store_return = mul::evaluate(split_string[0] + split_string[1] + split_string[2]);
+			store_return = mul.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '/'){
+		if (split_string[1] == "/"){
 			//pass in whole string eg: 3/4
-			store_return = div::evaluate(split_string[0] + split_string[1] + split_string[2]);
+			store_return = divide.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
 		return store_return;
 	}
 	//if true -> brackets on left but not right
 	if (remove_brackets(split_string[2]) == split_string[2]){
 		//check what operation it is
-		if (split_string[1] == '+'){
+		if (split_string[1] == "+"){
 			//pass in whole string eg: expression+4
-			store_return = add::evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			store_return = add.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '-'){
+		if (split_string[1] == "-"){
 			//pass in whole string eg: expression-4
-			store_return = sub::evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '('){
+		if (split_string[1] == "("){
 			//pass in whole string eg: expression*4
-			store_return = mul::evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == '/'){
+		if (split_string[1] == "/"){
 			//pass in whole string eg: expression/4
-			store_return = div::evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
 		return store_return;
 	}
 	//if true -> brackets on right but not left
 	if (remove_brackets(split_string[0]) == split_string[0]){
 		//check what operation it is
-		if (split_string[1] == '+'){
+		if (split_string[1] == "+"){
 			//pass in whole string eg: 3+expression
-			store_return = add::evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			store_return = add.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '-'){
+		if (split_string[1] == "-"){
 			//pass in whole string eg: 3-expression
-			store_return = sub::evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			store_return = sub.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '('){
+		if (split_string[1] == "("){
 			//pass in whole string eg: 3*expression
-			store_return = mul::evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			store_return = mul.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '/'){
+		if (split_string[1] == "/"){
 			//pass in whole string eg: 3/expression
-			store_return = div::evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			store_return = divide.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
 		return store_return;
 	}
 	//if true -> brackets on left AND right
 	if (remove_brackets(split_string[0]) != split_string[0] && remove_brackets(split_string[2]) != split_string[2]){
 		//check what operation it is
-		if (split_string[1] == '+'){
+		if (split_string[1] == "+"){
 			//pass in whole string eg: 3+expression
-			store_return = add::evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			store_return = add.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '-'){
+		if (split_string[1] == "-"){
 			//pass in whole string eg: 3-expression
-			store_return = sub::evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '('){
+		if (split_string[1] == "("){
 			//pass in whole string eg: 3*expression
-			store_return = Multiplication::evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == '/'){
+		if (split_string[1] == "/"){
 			//pass in whole string eg: 3/expression
-			store_return = Division::evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
 		return store_return;	
 	}
-}*/
+}
 
 string remove_brackets(string input){
 	string no_brackets = "";
