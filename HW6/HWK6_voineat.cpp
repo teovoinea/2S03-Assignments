@@ -15,8 +15,8 @@
 #include <vector>
 #include <stack>
 using namespace std;
-int evaluate(string expression);
-int applyOp(char op, int b, int a);
+double evaluate(string expression);
+double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
 vector<string> split(string input);
@@ -40,6 +40,9 @@ int main(){
 		}
 	}
 	input = no_space;
+	//cout << Addition().evaluate("3+4");
+	double final_out = evaluate(input);
+	output = std::to_string(final_out);
 	//vector<string> split_string = split(input);	
 	//string final_out = calculate(input);
 	/*
@@ -55,7 +58,7 @@ int main(){
 	cout << input << " = " << output << endl;
 }
 
-int evaluate(string expression){
+double evaluate(string expression){
 	std::stack<double> values;
 	std::stack<char> ops;
 
@@ -77,21 +80,42 @@ int evaluate(string expression){
 		}
 		else if(expression[i] == ')'){
 			while(ops.top() != '('){
-				values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+				double p1 = values.top();
+				values.pop();
+				double p2 = values.top();
+				values.pop();
+				char c1 = ops.top();
+				ops.pop();
+				values.push(applyOp(c1, p1, p2)); //error
 			}
 			ops.pop();
 		}
 		else if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
 			while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
-				values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+				double p1 = values.top();
+				values.pop();
+				double p2 = values.top();
+				values.pop();
+				char c1 = ops.top();
+				ops.pop();
+				values.push(applyOp(c1, p1, p2)); //error
 			}
 			ops.push(expression[i]);
 		}
 	}
 	while(!ops.empty()){
-		values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+		double p1 = values.top();
+		values.pop();
+		double p2 = values.top();
+		values.pop();
+		char c1 = ops.top();
+		ops.pop();
+		values.push(applyOp(c1, p1, p2)); //error
 	}
-	return values.pop();
+	
+	double v = values.top();
+	values.pop();
+	return v; //error
 }
 
 bool hasPrecedence(char op1, char op2){
@@ -106,11 +130,12 @@ bool hasPrecedence(char op1, char op2){
 	}
 }
 
-int applyOp(char op, int b, int a){
+double applyOp(char op, double b, double a){
 	string s = "";
 	s += std::to_string(a);
 	s += op;
 	s += std::to_string(b);
+	cout << s << endl;
 	string r = "";
 	double res = 0;
 	switch(op){
@@ -130,6 +155,8 @@ int applyOp(char op, int b, int a){
 			r = Division().evaluate(s);
 			std::istringstream(r) >> res;
 			return res;
+		default:
+			return 0;
 	}
 	return 0;
 }
