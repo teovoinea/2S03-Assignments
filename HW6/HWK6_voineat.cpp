@@ -4,6 +4,7 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: File containing the Main class
 */
+/*************** FOLLOW THESE FUNCTIONS: http://www.geeksforgeeks.org/expression-evaluation/ ***************/
 #include <iostream>
 #include "Addition.h"
 #include "Subtraction.h"
@@ -12,14 +13,18 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <stack>
 using namespace std;
+int evaluate(string expression);
+int applyOp(char op, int b, int a);
+bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
 vector<string> split(string input);
-string calculate(string input);
-Addition add ();
-Subtraction sub ();
-Multiplication mul ();
-Division div ();
+//string calculate(string input);
+Addition add(); //Addition().evaluate("3+4") -> "7.0000"
+Subtraction sub();
+Multiplication mul();
+Division div();
 int main(){
 	//Get input
 	cout << "Please enter an expression: ";
@@ -35,7 +40,6 @@ int main(){
 		}
 	}
 	input = no_space;
-
 	//vector<string> split_string = split(input);	
 	//string final_out = calculate(input);
 	/*
@@ -49,6 +53,85 @@ int main(){
 	//cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
 	//output
 	cout << input << " = " << output << endl;
+}
+
+int evaluate(string expression){
+	std::stack<double> values;
+	std::stack<char> ops;
+
+	for (int i = 0; i < expression.length(); i++){
+		if (expression[i] == ' '){
+			continue;
+		}
+		if (expression[i] >= '0' && expression[i] <= '9'){
+			string num = "";
+			while(i < expression.length() && expression[i] >= '0' && expression[i] <= '9'){
+				num += expression[i++];
+			}
+			double d = 0;
+			std::istringstream(num) >> d;
+			values.push(d);
+		}
+		else if(expression[i] == '('){
+			ops.push(expression[i]);
+		}
+		else if(expression[i] == ')'){
+			while(ops.top() != '('){
+				values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+			}
+			ops.pop();
+		}
+		else if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
+			while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
+				values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+			}
+			ops.push(expression[i]);
+		}
+	}
+	while(!ops.empty()){
+		values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+	}
+	return values.pop();
+}
+
+bool hasPrecedence(char op1, char op2){
+	if (op2 == '(' || op2 == ')'){
+		return false;
+	}
+	if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+int applyOp(char op, int b, int a){
+	string s = "";
+	s += std::to_string(a);
+	s += op;
+	s += std::to_string(b);
+	string r = "";
+	double res = 0;
+	switch(op){
+		case '+':
+			r = Addition().evaluate(s);
+			std::istringstream(r) >> res;
+			return res;
+		case '-':
+			r = Subtraction().evaluate(s);
+			std::istringstream(r) >> res;
+			return res;
+		case '*':
+			r = Multiplication().evaluate(s);
+			std::istringstream(r) >> res;
+			return res;
+		case '/':
+			r = Division().evaluate(s);
+			std::istringstream(r) >> res;
+			return res;
+	}
+	return 0;
 }
 
 /*
