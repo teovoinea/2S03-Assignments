@@ -10,10 +10,10 @@
 #include <string>
 using namespace std;
 ArithmeticExpression::ArithmeticExpression(){
-	
+	left = new Expression();
+	right = new Expression();
 }
-Expression *left;
-Expression *right;
+
 string ArithmeticExpression::evaluate(){
 	string s = "This is a string";
 	return s;

@@ -10,7 +10,7 @@
 using namespace std;
 string exp;
 Expression::Expression(){
-
+	exp = "";
 }
 
 string Expression::evaluate(){

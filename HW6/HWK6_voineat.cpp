@@ -22,7 +22,7 @@ double evaluate(string expression);
 double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
-string breakdown(string input, int &i,string ls, string rs);
+string breakdown(string input, int &i);
 vector<string> split(string input);
 //string calculate(string input);
 ArithmeticExpression ae = ArithmeticExpression();
@@ -40,7 +40,7 @@ int main(){
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
 	int l = 0;
-	string s = breakdown(input, l, "", "");
+	string s = breakdown(input, l);
 	cout << "Breakdown returns: " << s << endl;
 	//cout << Addition().evaluate("3+4");
 	//string final_out = calculate(input);
@@ -131,8 +131,7 @@ string calculate(string input){
 	string store_return = "";
 	split_string[0] = remove_brackets(split_string[0]);
 	split_string[2] = remove_brackets(split_string[2]);
-	//cout << split_string[0] << endl;
-	//cout << split_string[2] << endl;
+	//cout << split_string[0] << endl
 	//if true -> no brackets on either left AND right hand side, can directly be solved
 	if (remove_brackets(split_string[0]) == split_string[0] && remove_brackets(split_string[2]) == split_string[2]){
 		//check what operation it is
@@ -319,27 +318,29 @@ vector<string> split(string input){
 	return split_string;
 }
 
-string breakdown(string input, int &i, string ls, string rs){
+string breakdown(string input, int &i){
+	ae.left->exp = "";
+	ae.right->exp = "";
 	char op;
 	if (input[i] == '('){
-		ls = breakdown(input, ++i);
-	}
+		ae.left->exp = breakdown(input, ++i);
+	} 
+	cout << ae.left->exp << endl;
 	if (input[i] == ')'){
 		i++;
 	}
-	while (input[i] >= '0' || input[i] <= '9'){
-		ls += input[i++];
+	while (input[i] >= '0' && input[i] <= '9'){
+		ae.left->exp += input[i++];
 	}
 	op = input[i++];
 	if (input[i] == '('){
-		rs = breakdown(input, ++i);
+		ae.right->exp = breakdown(input, ++i);
 	}
 	else{
-		while (input[i] >= '0' || input[i] <= '9'){
-			rs += input[i++];
+		while (input[i] >= '0' && input[i] <= '9'){
+			ae.right->exp += input[i];
+			i++;
 		}
 	}
-	ae.left->exp = ls;
-	ae.right->exp = rs;
 	return calculate(ae.left->exp + op + ae.right->exp);
 }
