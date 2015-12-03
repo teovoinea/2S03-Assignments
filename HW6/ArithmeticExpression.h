@@ -17,5 +17,7 @@ class ArithmeticExpression : public Expression{
 		std::string evaluate();
 		void print();
 		float convert(std::string s);
+		Expression *left;
+		Expression *right;
 };
 #endif

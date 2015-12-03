@@ -15,5 +15,6 @@ class Expression{
 		Expression();
 		virtual std::string evaluate(); //evaluate expression and return string representation of the result
 		virtual void print(); //prints expression
+		std::string exp;
 };
 #endif

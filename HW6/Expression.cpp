@@ -8,6 +8,7 @@
 #include "Expression.h"
 #include <string>
 using namespace std;
+string exp;
 Expression::Expression(){
 
 }

@@ -21,11 +21,12 @@ string calculate(string input);
 double evaluate(string expression);
 double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
-void breakDown(string expression, std::stack<double> &values, std::stack<char> &ops, int iteration = 0);
 string remove_brackets(string input);
+string breakdown(string input, int &i,string ls, string rs);
 vector<string> split(string input);
 //string calculate(string input);
-Addition add = Addition(); //Addition().evaluate("3+4") -> "7.0000"
+ArithmeticExpression ae = ArithmeticExpression();
+Addition add = Addition();
 Subtraction sub = Subtraction();
 Multiplication mul = Multiplication();
 Division divide = Division();
@@ -38,21 +39,11 @@ int main(){
 	string output = "0";
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
-	string no_space = ""; 
-	for(int i =0; i < input.length(); i++){
-		if (input[i] != ' '){
-			no_space += input[i];
-		}
-	}
-	input = remove_brackets(input);
-	cout << input << endl;
-	vector<string> v = split(input);
-	for (int i = 0; i < v.size(); i++){
-		cout << v[i] << endl;
-	}
-	input = no_space;
+	int l = 0;
+	string s = breakdown(input, l, "", "");
+	cout << "Breakdown returns: " << s << endl;
 	//cout << Addition().evaluate("3+4");
-	string final_out = calculate(input);
+	//string final_out = calculate(input);
 	//cout << input << " = " << final_out << endl;
 	//vector<string> split_string = split(input);	
 	//string final_out = calculate(input);
@@ -69,62 +60,11 @@ int main(){
 	//output = calculate(input);
 	//cout << output << endl;
 }
-
-void breakDown(string expression, std::stack<double> &values, std::stack<char> &ops, int iteration){
-  if(iteration >= expression.length()) return;
-  int i = iteration;
-  //cout << "expression " << expression[i] << endl;
-  if (expression[i] == ' '){
-    breakDown(expression,values,ops,i+1);
-    return;
-  }
-  if (expression[i] >= '0' && expression[i] <= '9'){
-    string num = "";
-    while(i < expression.length() && expression[i] >= '0' && expression[i] <= '9'){
-      num += expression[i];
-      i++;
-    }
-    double d = 0;
-    std::istringstream(num) >> d;
-    values.push(d);
-  }
-  if(expression[i] == '('){
-    ops.push(expression[i]);
-    
-  }
-  if(expression[i] == ')'){
-    while(ops.top() != '('){
-      double p1 = values.top();
-      values.pop();
-      double p2 = values.top();
-      values.pop();
-      char c1 = ops.top();
-      ops.pop();
-      double returnVal = applyOp(c1, p1, p2);
-      values.push(returnVal); //error
-    }
-    ops.pop();
-  }
-  if(expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'){
-    while(!ops.empty() && hasPrecedence(expression[i], ops.top())){
-      double p1 = values.top();
-      values.pop();
-      double p2 = values.top();
-      values.pop();
-      char c1 = ops.top();
-      ops.pop();
-      double returnVal = applyOp(c1, p1, p2);
-      values.push(returnVal); //error
-    }
-    ops.push(expression[i]);
-  }
-  breakDown(expression,values,ops,i+1);
-}
-
+/*
 double evaluate(string expression){
 	std::stack<double> values;
 	std::stack<char> ops;
-  breakDown(expression,values,ops);
+	breakdown(expression,values,ops);
 	
 	while(!ops.empty()){
 		double p1 = values.top();
@@ -140,7 +80,7 @@ double evaluate(string expression){
 	double v = values.top();
 	values.pop();
 	return v; //error
-}
+}*/
 
 bool hasPrecedence(char op1, char op2){
 	if (op2 == '(' || op2 == ')'){
@@ -377,4 +317,29 @@ vector<string> split(string input){
 	split_string[1] = sign;
 	split_string[2] = right;
 	return split_string;
+}
+
+string breakdown(string input, int &i, string ls, string rs){
+	char op;
+	if (input[i] == '('){
+		ls = breakdown(input, ++i);
+	}
+	if (input[i] == ')'){
+		i++;
+	}
+	while (input[i] >= '0' || input[i] <= '9'){
+		ls += input[i++];
+	}
+	op = input[i++];
+	if (input[i] == '('){
+		rs = breakdown(input, ++i);
+	}
+	else{
+		while (input[i] >= '0' || input[i] <= '9'){
+			rs += input[i++];
+		}
+	}
+	ae.left->exp = ls;
+	ae.right->exp = rs;
+	return calculate(ae.left->exp + op + ae.right->exp);
 }
