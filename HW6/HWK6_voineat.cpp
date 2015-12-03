@@ -15,6 +15,7 @@
 #include <sstream>
 #include <vector>
 #include <stack>
+#include <cmath>
 using namespace std;
 string calculate(string input);
 double evaluate(string expression);
@@ -43,10 +44,16 @@ int main(){
 			no_space += input[i];
 		}
 	}
+	input = remove_brackets(input);
+	cout << input << endl;
+	vector<string> v = split(input);
+	for (int i = 0; i < v.size(); i++){
+		cout << v[i] << endl;
+	}
 	input = no_space;
 	//cout << Addition().evaluate("3+4");
-	double final_out = evaluate(input);
-	output = std::to_string(final_out);
+	string final_out = calculate(input);
+	//cout << input << " = " << final_out << endl;
 	//vector<string> split_string = split(input);	
 	//string final_out = calculate(input);
 	/*
@@ -59,15 +66,14 @@ int main(){
 	//cout << "The operator between sides is: " << split_string[1] << endl;
 	//cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
 	//output
-	cout << input << " = " << output << endl;
-	output = calculate(input);
-	cout << output << endl;
+	//output = calculate(input);
+	//cout << output << endl;
 }
 
 void breakDown(string expression, std::stack<double> &values, std::stack<char> &ops, int iteration){
   if(iteration >= expression.length()) return;
   int i = iteration;
-  cout << "expression " << expression[i] << endl;
+  //cout << "expression " << expression[i] << endl;
   if (expression[i] == ' '){
     breakDown(expression,values,ops,i+1);
     return;
@@ -153,7 +159,7 @@ double applyOp(char op, double b, double a){
 	s += std::to_string(a);
 	s += op;
 	s += std::to_string(b);
-	//cout << s << endl;
+	cout << s << endl;
 	string r = "";
 	double res = 0;
 	switch(op){
@@ -182,8 +188,11 @@ double applyOp(char op, double b, double a){
 
 string calculate(string input){
 	vector<string> split_string = split(input);
-	double total = 0;
 	string store_return = "";
+	split_string[0] = remove_brackets(split_string[0]);
+	split_string[2] = remove_brackets(split_string[2]);
+	//cout << split_string[0] << endl;
+	//cout << split_string[2] << endl;
 	//if true -> no brackets on either left AND right hand side, can directly be solved
 	if (remove_brackets(split_string[0]) == split_string[0] && remove_brackets(split_string[2]) == split_string[2]){
 		//check what operation it is
@@ -195,7 +204,7 @@ string calculate(string input){
 			//pass in whole string eg: 3-4
 			store_return = sub.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == "("){
+		if (split_string[1] == "*"){
 			//pass in whole string eg: 3*4
 			store_return = mul.evaluate(split_string[0] + split_string[1] + split_string[2]);
 		}
@@ -216,7 +225,7 @@ string calculate(string input){
 			//pass in whole string eg: expression-4
 			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
-		if (split_string[1] == "("){
+		if (split_string[1] == "*"){
 			//pass in whole string eg: expression*4
 			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 		}
@@ -237,7 +246,7 @@ string calculate(string input){
 			//pass in whole string eg: 3-expression
 			store_return = sub.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == "("){
+		if (split_string[1] == "*"){
 			//pass in whole string eg: 3*expression
 			store_return = mul.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 		}
@@ -258,7 +267,7 @@ string calculate(string input){
 			//pass in whole string eg: 3-expression
 			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
-		if (split_string[1] == "("){
+		if (split_string[1] == "*"){
 			//pass in whole string eg: 3*expression
 			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 		}
@@ -269,6 +278,7 @@ string calculate(string input){
 		return store_return;	
 	}
 }
+
 
 string remove_brackets(string input){
 	string no_brackets = "";
