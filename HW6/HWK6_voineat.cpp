@@ -24,6 +24,7 @@ bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
 string breakdown(string input, int &i);
 vector<string> split(string input);
+string encapsulate(string expr);
 //string calculate(string input);
 ArithmeticExpression ae = ArithmeticExpression();
 Addition add = Addition();
@@ -37,28 +38,20 @@ int main(){
 	string input;
 	getline(cin, input);
 	string output = "0";
+	string no_space = "";
+	for (int i = 0; i < input.length(); i++){
+		if (input[i] != ' '){
+			no_space += input[i];
+		}
+	}
+	input = no_space;
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
+	string bedmas = encapsulate(input);
+	cout << "Encapsulate returns: " << bedmas << endl;
 	int l = 0;
 	string s = breakdown(input, l);
 	cout << "Breakdown returns: " << s << endl;
-	//cout << Addition().evaluate("3+4");
-	//string final_out = calculate(input);
-	//cout << input << " = " << final_out << endl;
-	//vector<string> split_string = split(input);	
-	//string final_out = calculate(input);
-	/*
-	if (right_end_index != input.length()){
-		cout << "The end of the right hand side is not the end of the expression." << endl;
-	}*/
-
-
-	//cout << "The left hand side is: " << remove_brackets(split_string[0]) << endl;
-	//cout << "The operator between sides is: " << split_string[1] << endl;
-	//cout << "The right hand side is: " << remove_brackets(split_string[2]) << endl;
-	//output
-	//output = calculate(input);
-	//cout << output << endl;
 }
 /*
 double evaluate(string expression){
@@ -343,4 +336,77 @@ string breakdown(string input, int &i){
 		}
 	}
 	return calculate(ae.left->exp + op + ae.right->exp);
+}
+
+string encapsulate(string expr){
+	vector<string> subexprs;
+	int opening,closing;
+	for (int i = expr.length(); i > 0; i--){ //looping backwards 'cause Nick said so
+		if (expr[i] == '('){
+			opening = i;
+			for (int j = i; i < expr.length(); i++){
+				if (expr[j] == ')'){
+					closing = j;
+					break;
+				}
+			}
+			subexprs.push_back(expr.substr(opening, closing));
+			string temp = expr.substr(0, opening);
+			temp += "$" + subexprs.size() - 1;
+			temp += expr.substr(closing, expr.length());
+			expr = temp;
+			i = 0;
+			break;
+		}
+	}
+	//the program passes this point for 2+3 but not for 2+3*4
+	char dmas[4] = {'/', '*', '+', '-'};
+	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
+		for (int j = 0; j < expr.length(); j++){
+			if (expr[j] == dmas[i]){ //find the operator
+				int k = j;
+				string left_number = "";
+				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
+					left_number+= expr[k];
+					k--;
+				}
+				//cout << "expr is currently: " << expr << endl; you don't want to try to print expr....
+				cout << "Left number: " << left_number << endl;
+				int left_length = left_number.length();
+				k = j;
+				string right_number = "";
+				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
+					right_number+= expr[k];
+					k++;
+				}
+				cout << "Right number: " << right_number << endl;
+				int right_length = right_number.length();
+				subexprs.push_back(expr.substr(j - left_length, j + right_length));
+				string temp = expr.substr(0, j - left_length);
+				temp += "$" + subexprs.size() - 1;
+				temp += expr.substr(j + right_length);
+				expr = temp;
+				i = 0;
+			}
+		}
+	}
+	for (int i = 0; i < subexprs.size(); i++){
+		encapsulate(subexprs[i]);
+	}
+	for (int i = subexprs.size(); i > 0; i--){
+		//replace doesn't work how you want it to in cpp /tear expr = expr.replace("$"+i, "(" + subexprs[i] + ")");
+		string temp = "";
+		for (int j = 0; j < expr.length() - 1; j++){
+			string s1 = std::to_string(expr[j]) + std::to_string(expr[j+1]);
+			string s2 = "$" + std::to_string(i);
+			if (!s1.compare(s2)){ //compare returns 0 on equality, that's why there's !
+				temp += "(" + subexprs[i] + ")";
+			}
+			else{
+				temp += expr[j];
+			}
+			expr = temp;
+		}
+	}
+	return expr;
 }
