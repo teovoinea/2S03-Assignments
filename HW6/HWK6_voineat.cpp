@@ -25,6 +25,7 @@ string remove_brackets(string input);
 string breakdown(string input, int &i);
 vector<string> split(string input);
 string encapsulate(string expr);
+string desubexpr(string expr, vector<string> subexprs);
 //string calculate(string input);
 ArithmeticExpression ae = ArithmeticExpression();
 Addition add = Addition();
@@ -339,28 +340,41 @@ string breakdown(string input, int &i){
 }
 
 string encapsulate(string expr){
+  static const char dmas[4] = {'/', '*', '+', '-'};
+  int opCount = 0;
+  for (int x = 0; x < 4; x++) {
+    opCount += count(expr.begin(), expr.end(), dmas[x]);
+  }
+  if(opCount <= 1) return expr;
+  
 	vector<string> subexprs;
-	int opening,closing;
-	for (int i = expr.length(); i > 0; i--){ //looping backwards 'cause Nick said so
+  int opening,closing;
+	for (int i = expr.length()-1; i >= 0; i--){ //looping backwards 'cause Nick said so
 		if (expr[i] == '('){
 			opening = i;
-			for (int j = i; i < expr.length(); i++){
+			for (int j = i; j < expr.length(); j++){
 				if (expr[j] == ')'){
 					closing = j;
 					break;
 				}
 			}
-			subexprs.push_back(expr.substr(opening, closing));
+			subexprs.push_back(expr.substr(opening+1, closing-opening-1));
+      cout << "add : " << subexprs[subexprs.size()-1] << endl;
 			string temp = expr.substr(0, opening);
-			temp += "$" + subexprs.size() - 1;
-			temp += expr.substr(closing, expr.length());
+			temp += "$" + to_string(subexprs.size() - 1);
+			temp += expr.substr(closing+1, expr.length());
 			expr = temp;
 			i = 0;
 			break;
 		}
 	}
+  std::cout << expr << endl;
+  opCount = 0;
+  for (int x = 0; x < 4; x++) {
+    opCount += count(expr.begin(), expr.end(), dmas[x]);
+  }
+  if(opCount <= 1) return desubexpr(expr,subexprs);
 	//the program passes this point for 2+3 but not for 2+3*4
-	char dmas[4] = {'/', '*', '+', '-'};
 	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
 		for (int j = 0; j < expr.length(); j++){
 			if (expr[j] == dmas[i]){ //find the operator
@@ -371,7 +385,7 @@ string encapsulate(string expr){
 					k--;
 				}
 				//cout << "expr is currently: " << expr << endl; you don't want to try to print expr....
-				cout << "Left number: " << left_number << endl;
+				//cout << "Left number: " << left_number << endl;
 				int left_length = left_number.length();
 				k = j;
 				string right_number = "";
@@ -379,7 +393,7 @@ string encapsulate(string expr){
 					right_number+= expr[k];
 					k++;
 				}
-				cout << "Right number: " << right_number << endl;
+				//cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
 				subexprs.push_back(expr.substr(j - left_length, j + right_length));
 				string temp = expr.substr(0, j - left_length);
@@ -387,18 +401,23 @@ string encapsulate(string expr){
 				temp += expr.substr(j + right_length);
 				expr = temp;
 				i = 0;
+        opCount = 0;
+        for (int x = 0; x < 4; x++) {
+          opCount += count(expr.begin(), expr.end(), dmas[x]);
+        }
+        if(opCount <= 1) return desubexpr(expr,subexprs);
 			}
 		}
 	}
-	for (int i = 0; i < subexprs.size(); i++){
-		encapsulate(subexprs[i]);
-	}
-	for (int i = subexprs.size(); i > 0; i--){
+	/*for (int i = subexprs.size(); i > 0; i--){
 		//replace doesn't work how you want it to in cpp /tear expr = expr.replace("$"+i, "(" + subexprs[i] + ")");
-		string temp = "";
 		for (int j = 0; j < expr.length() - 1; j++){
+    string search = "$" + std::to_string(i);
+    printf("find %s",search.c_str());
+    size_t startPos = expr.find(search);
+    if(startPos == string::npos) continue;
+    expr.replace(startPos,search.length(),subexprs[i]);
 			string s1 = std::to_string(expr[j]) + std::to_string(expr[j+1]);
-			string s2 = "$" + std::to_string(i);
 			if (!s1.compare(s2)){ //compare returns 0 on equality, that's why there's !
 				temp += "(" + subexprs[i] + ")";
 			}
@@ -407,6 +426,20 @@ string encapsulate(string expr){
 			}
 			expr = temp;
 		}
-	}
-	return expr;
+	}*/
+	return desubexpr(expr,subexprs);
+}
+
+string desubexpr(string expr, vector<string> subexprs){
+  for (int i = 0; i < subexprs.size(); i++){
+    subexprs[i] = encapsulate(subexprs[i]);
+  }
+  for (int i = subexprs.size()-1; i >= 0; i--){
+    string search = "$" + std::to_string(i);
+    printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
+    size_t startPos = expr.find(search);
+    if(startPos == string::npos) continue;
+    expr.replace(startPos,search.length(),"(" + subexprs[i] + ")");
+  }
+  return expr;
 }
