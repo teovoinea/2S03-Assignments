@@ -32,6 +32,11 @@ Subtraction sub = Subtraction();
 Multiplication mul = Multiplication();
 Division divide = Division();
 
+// TODO 
+// (5*2-1)+(3+2) breaks
+// any scenario where its a (length 3 expression) op (length 2 expression) only evaluates the first expression
+
+
 int main(){
 	//Get input
 	cout << "Please enter an expression: ";
