@@ -318,13 +318,14 @@ string breakdown(string input, int &i){
 	char op;
 	if (input[i] == '('){
 		ae.left->exp = breakdown(input, ++i);
-	}
-	else if (input[i] == ')'){
-    ae.left->exp = breakdown(input, ++i);
   }else{
     while (input[i] >= '0' && input[i] <= '9'){
       ae.left->exp += input[i++];
     }
+  }
+  
+	if (input[i] == ')'){
+    ++i;
   }
 	op = input[i++];
 	if (input[i] == '('){
@@ -377,6 +378,7 @@ string encapsulate(string expr){
 	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
 		for (int j = 0; j < expr.length(); j++){
 			if (expr[j] == dmas[i]){ //find the operator
+        //cout << "opp found at " << j << " : " << expr << endl;
         int k = j-1;
 				string left_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
@@ -395,7 +397,7 @@ string encapsulate(string expr){
 				}
 				//cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
-				subexprs.push_back(expr.substr(j - left_length, j + right_length));
+				subexprs.push_back(expr.substr(j - left_length, j + right_length+1));
         //cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
 				string temp = expr.substr(0, j - left_length);
 				temp += "$" + to_string(subexprs.size() - 1);
@@ -434,12 +436,12 @@ string encapsulate(string expr){
 string desubexpr(string expr, vector<string> subexprs){
   for (int i = subexprs.size()-1; i >= 0; i--){
     string search = "$" + to_string(i);
-    printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
+    //printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
     size_t startPos = expr.find(search);
     if(startPos == string::npos) continue;
     int t = 0;
     expr.replace(startPos,search.length(),"(" + encapsulate(subexprs[i]) + ")");
-    printf("%s\n",expr.c_str());
+    //printf("%s\n",expr.c_str());
   }
   return expr;
 }
