@@ -26,7 +26,7 @@ string breakdown(string input, int &i);
 vector<string> split(string input);
 string encapsulate(string expr);
 string desubexpr(string expr, vector<string> subexprs);
-//string calculate(string input);
+string calculate(string input);
 Addition add = Addition();
 Subtraction sub = Subtraction();
 Multiplication mul = Multiplication();
@@ -44,14 +44,28 @@ int main(){
 			no_space += input[i];
 		}
 	}
-	input = no_space;
+	input = remove_brackets(no_space);
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
 	string bedmas = encapsulate(input);
-	cout << "Encapsulate returns: " << bedmas << endl;
 	int l = 0;
+	int m = 0;
 	string s = breakdown(bedmas, l);
-	cout << "Breakdown returns: " << s << endl;
+	string calc = breakdown(input, m);
+
+	cout << "answer: " << calc << endl;
+	cout << "answer: " << s << endl;
+
+	if (s == ""){
+		cout << "answer: " << calc << endl;
+	}else if (calc == ""){
+		cout << "answer: " << s << endl;
+	}else if (calc == s){
+		cout << "answer: " << calc << endl;
+	}else{
+		cout << "answer: " << s << endl;
+	}
+
 }
 /*
 double evaluate(string expression){
@@ -214,16 +228,22 @@ string calculate(string input){
 
 string remove_brackets(string input){
 	string no_brackets = "";
-	for (int i = 0; i < input.length(); i++){
-		if (i == 0 && input[i] == '('){
-
+	bool isLastClosingBracket = true;
+	if (input[0] == '('){
+		for (int i = 1; i <input.size()-1; i++){
+			if (input[i] == ')'){
+				isLastClosingBracket = false;
+			}
 		}
-		else if (i == input.length() - 1 && input[i] == ')'){
-
+		if (isLastClosingBracket){
+			for (int i = 1; i < input.size()-1;i++){
+				no_brackets += input[i];
+			}
+		}else {
+			return input;
 		}
-		else{
-			no_brackets += input[i];
-		}
+	}else {
+		return input;
 	}
 	return no_brackets;
 }
@@ -258,7 +278,7 @@ vector<string> split(string input){
 	int sign_index = 0;
 	for (int i = left_end_index + 1; i < input.length(); i++){
 		if (input[i] == '('){
-			cout << "Expression is not well formed" << endl;
+			//cout << "Expression is not well formed" << endl;
 			break;
 		}
 		if (input[i] == '+'){
