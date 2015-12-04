@@ -27,7 +27,6 @@ vector<string> split(string input);
 string encapsulate(string expr);
 string desubexpr(string expr, vector<string> subexprs);
 //string calculate(string input);
-ArithmeticExpression ae = ArithmeticExpression();
 Addition add = Addition();
 Subtraction sub = Subtraction();
 Multiplication mul = Multiplication();
@@ -51,7 +50,7 @@ int main(){
 	string bedmas = encapsulate(input);
 	cout << "Encapsulate returns: " << bedmas << endl;
 	int l = 0;
-	string s = breakdown(input, l);
+	string s = breakdown(bedmas, l);
 	cout << "Breakdown returns: " << s << endl;
 }
 /*
@@ -313,19 +312,20 @@ vector<string> split(string input){
 }
 
 string breakdown(string input, int &i){
+  ArithmeticExpression ae;
 	ae.left->exp = "";
 	ae.right->exp = "";
 	char op;
 	if (input[i] == '('){
 		ae.left->exp = breakdown(input, ++i);
-	} 
-	cout << ae.left->exp << endl;
-	if (input[i] == ')'){
-		i++;
 	}
-	while (input[i] >= '0' && input[i] <= '9'){
-		ae.left->exp += input[i++];
-	}
+	else if (input[i] == ')'){
+    ae.left->exp = breakdown(input, ++i);
+  }else{
+    while (input[i] >= '0' && input[i] <= '9'){
+      ae.left->exp += input[i++];
+    }
+  }
 	op = input[i++];
 	if (input[i] == '('){
 		ae.right->exp = breakdown(input, ++i);
@@ -359,7 +359,7 @@ string encapsulate(string expr){
 				}
 			}
 			subexprs.push_back(expr.substr(opening+1, closing-opening-1));
-      cout << "add : " << subexprs[subexprs.size()-1] << endl;
+      //cout << "add : " << subexprs[subexprs.size()-1] << endl;
 			string temp = expr.substr(0, opening);
 			temp += "$" + to_string(subexprs.size() - 1);
 			temp += expr.substr(closing+1, expr.length());
@@ -368,7 +368,6 @@ string encapsulate(string expr){
 			break;
 		}
 	}
-  std::cout << expr << endl;
   opCount = 0;
   for (int x = 0; x < 4; x++) {
     opCount += count(expr.begin(), expr.end(), dmas[x]);
@@ -378,7 +377,7 @@ string encapsulate(string expr){
 	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
 		for (int j = 0; j < expr.length(); j++){
 			if (expr[j] == dmas[i]){ //find the operator
-				int k = j;
+        int k = j-1;
 				string left_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
 					left_number+= expr[k];
@@ -387,18 +386,20 @@ string encapsulate(string expr){
 				//cout << "expr is currently: " << expr << endl; you don't want to try to print expr....
 				//cout << "Left number: " << left_number << endl;
 				int left_length = left_number.length();
-				k = j;
+        k = j+1;
 				string right_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
 					right_number+= expr[k];
 					k++;
+          
 				}
 				//cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
 				subexprs.push_back(expr.substr(j - left_length, j + right_length));
+        //cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
 				string temp = expr.substr(0, j - left_length);
-				temp += "$" + subexprs.size() - 1;
-				temp += expr.substr(j + right_length);
+				temp += "$" + to_string(subexprs.size() - 1);
+				temp += expr.substr(j + right_length+1);
 				expr = temp;
 				i = 0;
         opCount = 0;
@@ -431,15 +432,14 @@ string encapsulate(string expr){
 }
 
 string desubexpr(string expr, vector<string> subexprs){
-  for (int i = 0; i < subexprs.size(); i++){
-    subexprs[i] = encapsulate(subexprs[i]);
-  }
   for (int i = subexprs.size()-1; i >= 0; i--){
-    string search = "$" + std::to_string(i);
+    string search = "$" + to_string(i);
     printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
     size_t startPos = expr.find(search);
     if(startPos == string::npos) continue;
-    expr.replace(startPos,search.length(),"(" + subexprs[i] + ")");
+    int t = 0;
+    expr.replace(startPos,search.length(),"(" + encapsulate(subexprs[i]) + ")");
+    printf("%s\n",expr.c_str());
   }
   return expr;
 }
