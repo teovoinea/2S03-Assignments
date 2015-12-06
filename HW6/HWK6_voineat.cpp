@@ -56,20 +56,10 @@ int main(){
 	int l = 0;
 	int m = 0;
 	string s = breakdown(bedmas, l);
-	string calc = breakdown(input, m);
+        //	string calc = breakdown(input, m);
 
-	cout << "answer: " << calc << endl;
+	//cout << "answer: " << calc << endl;
 	cout << "answer: " << s << endl;
-
-	if (s == ""){
-		cout << "answer: " << calc << endl;
-	}else if (calc == ""){
-		cout << "answer: " << s << endl;
-	}else if (calc == s){
-		cout << "answer: " << calc << endl;
-	}else{
-		cout << "answer: " << s << endl;
-	}
 
 }
 /*
@@ -390,8 +380,7 @@ string encapsulate(string expr){
 			temp += "$" + to_string(subexprs.size() - 1);
 			temp += expr.substr(closing+1, expr.length());
 			expr = temp;
-			i = 0;
-			break;
+			i = expr.length()-1;
 		}
 	}
   opCount = 0;
@@ -403,7 +392,7 @@ string encapsulate(string expr){
 	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
 		for (int j = 0; j < expr.length(); j++){
 			if (expr[j] == dmas[i]){ //find the operator
-        //cout << "opp found at " << j << " : " << expr << endl;
+        //cout << "op found at " << j << " : " << expr << endl;
         int k = j-1;
 				string left_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
@@ -411,7 +400,7 @@ string encapsulate(string expr){
 					k--;
 				}
 				//cout << "expr is currently: " << expr << endl; you don't want to try to print expr....
-				//cout << "Left number: " << left_number << endl;
+				cout << "Left number: " << left_number << endl;
 				int left_length = left_number.length();
         k = j+1;
 				string right_number = "";
@@ -420,15 +409,16 @@ string encapsulate(string expr){
 					k++;
           
 				}
-				//cout << "Right number: " << right_number << endl;
+				cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
 				subexprs.push_back(expr.substr(j - left_length, j + right_length+1));
-        //cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
+        cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
 				string temp = expr.substr(0, j - left_length);
 				temp += "$" + to_string(subexprs.size() - 1);
 				temp += expr.substr(j + right_length+1);
 				expr = temp;
 				i = 0;
+        cout << expr << endl;
         opCount = 0;
         for (int x = 0; x < 4; x++) {
           opCount += count(expr.begin(), expr.end(), dmas[x]);
