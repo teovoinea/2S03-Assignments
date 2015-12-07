@@ -25,7 +25,7 @@ string remove_brackets(string input);
 string breakdown(string input, int &i);
 vector<string> split(string input);
 string encapsulate(string expr);
-string desubexpr(string expr, vector<string> subexprs);
+string desubexpr(string expr, string _subexprs, int exprsCount);
 string calculate(string input);
 string handleNegatives(string input);
 Addition add = Addition();
@@ -393,7 +393,8 @@ string encapsulate(string expr){
   }
   if(opCount <= 1) return expr;
   
-	vector<string> subexprs;
+  string subexprs;
+  int exprsCount = 0;
   int opening,closing;
 	for (int i = expr.length()-1; i >= 0; i--){ //looping backwards 'cause Nick said so
 		if (expr[i] == '('){
@@ -404,10 +405,12 @@ string encapsulate(string expr){
 					break;
 				}
 			}
-			subexprs.push_back(expr.substr(opening+1, closing-opening-1));
+			subexprs += expr.substr(opening+1, closing-opening-1);
+      exprsCount++;
+      subexprs += ",";
       //cout << "add : " << subexprs[subexprs.size()-1] << endl;
 			string temp = expr.substr(0, opening);
-			temp += "$" + to_string(subexprs.size() - 1);
+			temp += "$" + to_string(exprsCount - 1);
 			temp += expr.substr(closing+1, expr.length());
 			expr = temp;
 			i = expr.length()-1;
@@ -417,7 +420,7 @@ string encapsulate(string expr){
   for (int x = 0; x < 4; x++) {
     opCount += count(expr.begin(), expr.end(), dmas[x]);
   }
-  if(opCount <= 1) return desubexpr(expr,subexprs);
+  if(opCount <= 1) return desubexpr(expr,subexprs,exprsCount);
 	//the program passes this point for 2+3 but not for 2+3*4
 	for (int i = 0; i < 4; i++){ //no foreach in cpp /tear
 		for (int j = 0; j < expr.length(); j++){
@@ -441,10 +444,11 @@ string encapsulate(string expr){
 				}
 				cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
-				subexprs.push_back(expr.substr(j - left_length, j + right_length+1));
-        cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
+				subexprs += expr.substr(j - left_length, j + right_length+1);
+        exprsCount++;
+        //cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
 				string temp = expr.substr(0, j - left_length);
-				temp += "$" + to_string(subexprs.size() - 1);
+				temp += "$" + to_string(exprsCount - 1);
 				temp += expr.substr(j + right_length+1);
 				expr = temp;
 				i = 0;
@@ -453,7 +457,7 @@ string encapsulate(string expr){
         for (int x = 0; x < 4; x++) {
           opCount += count(expr.begin(), expr.end(), dmas[x]);
         }
-        if(opCount <= 1) return desubexpr(expr,subexprs);
+        if(opCount <= 1) return desubexpr(expr,subexprs,exprsCount);
 			}
 		}
 	}
@@ -475,11 +479,19 @@ string encapsulate(string expr){
 			expr = temp;
 		}
 	}*/
-	return desubexpr(expr,subexprs);
+	return desubexpr(expr,subexprs,exprsCount);
 }
 
-string desubexpr(string expr, vector<string> subexprs){
-  for (int i = subexprs.size()-1; i >= 0; i--){
+string desubexpr(string expr, string _subexprs, int exprsCount){
+  string* subexprs = new string[exprsCount];
+  istringstream ss(_subexprs);
+  string token;
+  int x = 0;
+  while(getline(ss,token,',') && x < exprsCount){
+    subexprs[x] = token;
+    x++;
+  }
+  for (int i = exprsCount-1; i >= 0; i--){
     string search = "$" + to_string(i);
     //printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
     size_t startPos = expr.find(search);
@@ -488,6 +500,7 @@ string desubexpr(string expr, vector<string> subexprs){
     expr.replace(startPos,search.length(),"(" + encapsulate(subexprs[i]) + ")");
     //printf("%s\n",expr.c_str());
   }
+  delete[] subexprs;
   return expr;
 }
 
