@@ -27,6 +27,7 @@ vector<string> split(string input);
 string encapsulate(string expr);
 string desubexpr(string expr, vector<string> subexprs);
 string calculate(string input);
+string handleNegatives(string input);
 Addition add = Addition();
 Subtraction sub = Subtraction();
 Multiplication mul = Multiplication();
@@ -49,7 +50,7 @@ int main(){
 			no_space += input[i];
 		}
 	}
-	input = remove_brackets(no_space);
+	input = remove_brackets(handleNegatives(no_space));
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
 	string bedmas = encapsulate(input);
@@ -221,9 +222,34 @@ string calculate(string input){
 	}
 }
 
-
 string remove_brackets(string input){
 	string no_brackets = "";
+	int openCount = 0;
+	int closeCount = 0;
+	bool doBreak = (input[0] == '(' && input[1] == '(');
+	for (int i = 0; i < input.size(); i++){
+		if (input[i] == '('){
+			openCount++;
+		}else if (input[i] == ')'){
+			closeCount++;
+		}
+		if (i == input.size()-1 && openCount == closeCount && input[i] == ')' && !doBreak){
+			for (int i = 1; i < input.size()-1;i++){
+				no_brackets += input[i];
+			}
+			return no_brackets;
+		}else if (!doBreak){
+
+		}
+	}
+	return input;
+}
+
+/*
+string remove_brackets(string input){
+	string no_brackets = "";
+	int openCount = 0;
+	int closeCount = 0;
 	bool isLastClosingBracket = true;
 	if (input[0] == '('){
 		for (int i = 1; i <input.size()-1; i++){
@@ -243,6 +269,8 @@ string remove_brackets(string input){
 	}
 	return no_brackets;
 }
+*/
+
 
 vector<string> split(string input){
 	vector<string> split_string(3);
@@ -461,4 +489,16 @@ string desubexpr(string expr, vector<string> subexprs){
     //printf("%s\n",expr.c_str());
   }
   return expr;
+}
+
+string handleNegatives(string input){
+	string output;
+	for (int i = 0; i < input.size(); i++){
+		if (input[i] == '(' && input[i+1] == '-'){
+			output += "(0";
+		}else{
+			output += input[i];
+		}
+	}
+	return output;
 }
