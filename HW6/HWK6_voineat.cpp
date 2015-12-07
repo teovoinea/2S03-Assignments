@@ -53,6 +53,7 @@ int main(){
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
 	string bedmas = encapsulate(input);
+  cout << bedmas << endl;
 	int l = 0;
 	int m = 0;
 	string s = breakdown(bedmas, l);
@@ -338,11 +339,12 @@ string breakdown(string input, int &i){
       ae.left->exp += input[i++];
     }
   }
-  
 	if (input[i] == ')'){
     ++i;
   }
+  if(i >= input.length()) return ae.left->exp;
 	op = input[i++];
+  if(i >= input.length()) return ae.left->exp;
 	if (input[i] == '('){
 		ae.right->exp = breakdown(input, ++i);
 	}
