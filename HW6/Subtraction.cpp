@@ -36,6 +36,6 @@ string Subtraction::evaluate(string input){
 	double value = value1 - value2;
 	return std::to_string(value);
 }
-void Subtraction::print(){
-	cout << "This will print something" << endl;
+void Subtraction::print(string input){
+	cout << input << endl;
 }

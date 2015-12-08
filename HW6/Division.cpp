@@ -36,6 +36,6 @@ string Division::evaluate(string input){
 	double value = value1 / value2;
 	return std::to_string(value);
 }
-void Division::print(){
-	cout << "This will print something" << endl;
+void Division::print(string input){
+	cout << input;
 }

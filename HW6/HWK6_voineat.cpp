@@ -129,31 +129,37 @@ double applyOp(char op, double b, double a){
 	return 0;
 }
 
-
+//recursively calculate the value of the expression
+//this assumes the expression is completely well formed
+//which is why we have the previous steps to encapsulate and
+//error check the input
 string calculate(string input){
-	vector<string> split_string = split(input);
-	string store_return = "";
-	split_string[0] = remove_brackets(split_string[0]);
-	split_string[2] = remove_brackets(split_string[2]);
-	//cout << split_string[0] << endl
+	vector<string> split_string = split(input); //Nick you still need to remove this vector
+	string store_return = ""; //the final return value for this call
+	split_string[0] = remove_brackets(split_string[0]); //the left side of the equation, without brackets
+	split_string[2] = remove_brackets(split_string[2]); //the right side of the equation, without brackets
 	//if true -> no brackets on either left AND right hand side, can directly be solved
 	if (remove_brackets(split_string[0]) == split_string[0] && remove_brackets(split_string[2]) == split_string[2]){
 		//check what operation it is
 		if (split_string[1] == "+"){
-			//pass in whole string eg: 3+4
+			//pass in whole string eg: "3+4"
 			store_return = add.evaluate(split_string[0] + split_string[1] + split_string[2]);
+			add.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "-"){
-			//pass in whole string eg: 3-4
+			//pass in whole string eg: "3-4"
 			store_return = sub.evaluate(split_string[0] + split_string[1] + split_string[2]);
+			sub.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "*"){
-			//pass in whole string eg: 3*4
+			//pass in whole string eg: "3*4"
 			store_return = mul.evaluate(split_string[0] + split_string[1] + split_string[2]);
+			mul.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "/"){
-			//pass in whole string eg: 3/4
+			//pass in whole string eg: "3/4"
 			store_return = divide.evaluate(split_string[0] + split_string[1] + split_string[2]);
+			divide.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
 		}
 		return store_return;
 	}
@@ -163,18 +169,22 @@ string calculate(string input){
 		if (split_string[1] == "+"){
 			//pass in whole string eg: expression+4
 			store_return = add.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			add.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
 		if (split_string[1] == "-"){
 			//pass in whole string eg: expression-4
 			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
-		}
+			sub.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
+		}	
 		if (split_string[1] == "*"){
 			//pass in whole string eg: expression*4
 			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			mul.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
 		if (split_string[1] == "/"){
 			//pass in whole string eg: expression/4
 			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
+			divide.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
 		return store_return;
 	}
@@ -184,18 +194,22 @@ string calculate(string input){
 		if (split_string[1] == "+"){
 			//pass in whole string eg: 3+expression
 			store_return = add.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			add.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "-"){
 			//pass in whole string eg: 3-expression
 			store_return = sub.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			sub.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "*"){
 			//pass in whole string eg: 3*expression
 			store_return = mul.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			mul.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "/"){
 			//pass in whole string eg: 3/expression
 			store_return = divide.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
+			divide.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		return store_return;
 	}
@@ -203,20 +217,24 @@ string calculate(string input){
 	if (remove_brackets(split_string[0]) != split_string[0] && remove_brackets(split_string[2]) != split_string[2]){
 		//check what operation it is
 		if (split_string[1] == "+"){
-			//pass in whole string eg: 3+expression
+			//pass in whole string eg: expression+expression
 			store_return = add.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			//Don't print anything because we don't have any base numbers
 		}
 		if (split_string[1] == "-"){
-			//pass in whole string eg: 3-expression
+			//pass in whole string eg: expression-expression
 			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			//Don't print anything because we don't have any base numbers
 		}
 		if (split_string[1] == "*"){
-			//pass in whole string eg: 3*expression
+			//pass in whole string eg: expression*expression
 			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			//Don't print anything because we don't have any base numbers
 		}
 		if (split_string[1] == "/"){
-			//pass in whole string eg: 3/expression
+			//pass in whole string eg: expression/expression
 			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
+			//Don't print anything because we don't have any base numbers
 		}
 		return store_return;	
 	}
@@ -245,31 +263,6 @@ string remove_brackets(string input){
 	return input;
 }
 
-/*
-string remove_brackets(string input){
-	string no_brackets = "";
-	int openCount = 0;
-	int closeCount = 0;
-	bool isLastClosingBracket = true;
-	if (input[0] == '('){
-		for (int i = 1; i <input.size()-1; i++){
-			if (input[i] == ')'){
-				isLastClosingBracket = false;
-			}
-		}
-		if (isLastClosingBracket){
-			for (int i = 1; i < input.size()-1;i++){
-				no_brackets += input[i];
-			}
-		}else {
-			return input;
-		}
-	}else {
-		return input;
-	}
-	return no_brackets;
-}
-*/
 
 
 vector<string> split(string input){

@@ -36,6 +36,6 @@ string Multiplication::evaluate(string input){
 	double value = value1 * value2;
 	return std::to_string(value);
 }
-void Multiplication::print(){
-	cout << "This will print something" << endl;
+void Multiplication::print(string input){
+	cout << input;
 }

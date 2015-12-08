@@ -36,6 +36,6 @@ string Addition::evaluate(string input){
 	double value = value1 + value2;
 	return std::to_string(value);
 }
-void Addition::print(){
-	cout << "This is going to print something" << endl;
+void Addition::print(string input){
+	cout << input;
 }
