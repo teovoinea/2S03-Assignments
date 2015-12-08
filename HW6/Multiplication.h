@@ -4,17 +4,17 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: Multiplication header file
 */
-#ifndef MULTIPLICATION_H
-#define MULTIPLICATION_H
+#ifndef MULTIPLICATION_H // header guard
+#define MULTIPLICATION_H // define header
 
-#include <string>
-#include "ArithmeticExpression.h"
-class Multiplication : public ArithmeticExpression{
-	private:
-
-	public:
-		Multiplication();
-		std::string evaluate(std::string input);
-		void print(std::string input);
-};
+#include <string> // string class 
+#include "ArithmeticExpression.h" // include arithmetic expression
+class Multiplication : public ArithmeticExpression{ // define class
+	private: // private vars
+	// none 
+	public: // public vars
+		Multiplication(); // constructor
+		std::string evaluate(std::string input); // evaluate method
+		void print(std::string input); // print method
+};// close class
 #endif

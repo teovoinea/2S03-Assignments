@@ -4,20 +4,21 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: Arithmetic Expression header file
 */
-#ifndef ARITHMETICEXPRESSION_H
-#define ARITHMETICEXPRESSION_H
+#ifndef ARITHMETICEXPRESSION_H //header guard
+#define ARITHMETICEXPRESSION_H // define class
 
-#include "Expression.h"
-#include <string>
-class ArithmeticExpression : public Expression{
-	private:
-
-	public:
-		ArithmeticExpression();
-		std::string evaluate();
-		void print();
-		float convert(std::string s);
-		Expression *left;
-		Expression *right;
+#include "Expression.h" //include expression header
+#include <string> // include string class
+class ArithmeticExpression : public Expression{ // define class
+	private: // private vars 
+	// none
+	public: // public vars/ methods 
+		ArithmeticExpression(); // constructor
+		std::string evaluate(); // evaluate method
+		void print(); // print method 
+		float convert(std::string s); // convert method
+		Expression *left; // pointer to left expression
+		Expression *right; // pointer to right expression
 };
 #endif
+

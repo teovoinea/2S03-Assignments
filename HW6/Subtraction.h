@@ -4,17 +4,17 @@
 * Student Number: 1426613, 1418731, 1409586
 * Description: Subtraction header file
 */
-#ifndef SUBTRACTION_H
-#define SUBTRACTION_H
+#ifndef SUBTRACTION_H //header guard
+#define SUBTRACTION_H //define header
 
-#include <string>
-#include "ArithmeticExpression.h"
-class Subtraction : public ArithmeticExpression{
-	private:
+#include <string> // string class
+#include "ArithmeticExpression.h" // arithmetic expression class
+class Subtraction : public ArithmeticExpression{ // define class
+	private: // private vars
 
-	public:
-		Subtraction();
-		std::string evaluate(std::string input);
-		void print(std::string input);
-};
+	public: // public vars
+		Subtraction(); //constructor
+		std::string evaluate(std::string input); // evaluate statement
+		void print(std::string input); // print statement
+};// close class
 #endif
