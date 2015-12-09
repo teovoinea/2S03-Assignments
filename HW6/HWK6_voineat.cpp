@@ -23,7 +23,7 @@ double applyOp(char op, double b, double a);
 bool hasPrecedence(char op1, char op2);
 string remove_brackets(string input);
 string breakdown(string input, int &i);
-vector<string> split(string input);
+string* split(string input);
 string encapsulate(string expr);
 string desubexpr(string expr, string _subexprs, int exprsCount);
 string calculate(string input);
@@ -134,7 +134,7 @@ double applyOp(char op, double b, double a){
 //which is why we have the previous steps to encapsulate and
 //error check the input
 string calculate(string input){
-	vector<string> split_string = split(input); //Nick you still need to remove this vector
+  string* split_string = split(input);
 	string store_return = ""; //the final return value for this call
 	split_string[0] = remove_brackets(split_string[0]); //the left side of the equation, without brackets
 	split_string[2] = remove_brackets(split_string[2]); //the right side of the equation, without brackets
@@ -161,6 +161,7 @@ string calculate(string input){
 			store_return = divide.evaluate(split_string[0] + split_string[1] + split_string[2]);
 			divide.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
 		}
+    delete[] split_string;
 		return store_return;
 	}
 	//if true -> brackets on left but not right
@@ -186,6 +187,7 @@ string calculate(string input){
 			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
 			divide.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
+    delete[] split_string;
 		return store_return;
 	}
 	//if true -> brackets on right but not left
@@ -211,6 +213,7 @@ string calculate(string input){
 			store_return = divide.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
 			divide.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
+    delete[] split_string;
 		return store_return;
 	}
 	//if true -> brackets on left AND right
@@ -236,6 +239,7 @@ string calculate(string input){
 			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + calculate(split_string[2]));
 			//Don't print anything because we don't have any base numbers
 		}
+    delete[] split_string;
 		return store_return;	
 	}
 }
@@ -265,8 +269,8 @@ string remove_brackets(string input){
 
 
 
-vector<string> split(string input){
-	vector<string> split_string(3);
+string* split(string input){
+  string* split_string = new string[3];
 
 	//Get the left side of the equation
 	int open_brackets = 0;
@@ -352,6 +356,7 @@ string breakdown(string input, int &i){
   ArithmeticExpression ae;
 	ae.left->exp = "";
 	ae.right->exp = "";
+  cout << "breakdown: " << input.substr(i) << endl;
 	char op;
 	if (input[i] == '('){
 		ae.left->exp = breakdown(input, ++i);
@@ -360,7 +365,7 @@ string breakdown(string input, int &i){
       ae.left->exp += input[i++];
     }
   }
-	if (input[i] == ')'){
+	while (input[i] == ')'){
     ++i;
   }
   if(i >= input.length()) return ae.left->exp;
@@ -379,7 +384,7 @@ string breakdown(string input, int &i){
 }
 
 string encapsulate(string expr){
-  static const char dmas[4] = {'/', '*', '+', '-'};
+  static const char dmas[4] = {'/', '*', '-', '+'};
   int opCount = 0;
   for (int x = 0; x < 4; x++) {
     opCount += count(expr.begin(), expr.end(), dmas[x]);
@@ -422,22 +427,26 @@ string encapsulate(string expr){
         int k = j-1;
 				string left_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
-					left_number+= expr[k];
 					k--;
 				}
+        k++;
+        while(k < j){
+          left_number+= expr[k];
+          k++;
+        }
 				//cout << "expr is currently: " << expr << endl; you don't want to try to print expr....
-				cout << "Left number: " << left_number << endl;
+				//cout << "Left number: " << left_number << endl;
 				int left_length = left_number.length();
         k = j+1;
 				string right_number = "";
 				while ((expr[k] >= '0' && expr[k] <= '9') || expr[k] == '$'){
-					right_number+= expr[k];
+					right_number += expr[k];
 					k++;
-          
 				}
-				cout << "Right number: " << right_number << endl;
+				//cout << "Right number: " << right_number << endl;
 				int right_length = right_number.length();
-				subexprs += expr.substr(j - left_length, j + right_length+1);
+        //cout << "add " << left_number + dmas[i] + right_number << endl;
+				subexprs += left_number + dmas[i] + right_number + ",";
         exprsCount++;
         //cout << "add " << subexprs.size()-1 << " : " << subexprs[subexprs.size()-1] << endl;
 				string temp = expr.substr(0, j - left_length);
@@ -445,7 +454,7 @@ string encapsulate(string expr){
 				temp += expr.substr(j + right_length+1);
 				expr = temp;
 				i = 0;
-        cout << expr << endl;
+        //cout << expr << endl;
         opCount = 0;
         for (int x = 0; x < 4; x++) {
           opCount += count(expr.begin(), expr.end(), dmas[x]);
@@ -477,6 +486,7 @@ string encapsulate(string expr){
 
 string desubexpr(string expr, string _subexprs, int exprsCount){
   string* subexprs = new string[exprsCount];
+  //cout << "_subexprs = " <<  _subexprs << endl;
   istringstream ss(_subexprs);
   string token;
   int x = 0;
@@ -486,8 +496,8 @@ string desubexpr(string expr, string _subexprs, int exprsCount){
   }
   for (int i = exprsCount-1; i >= 0; i--){
     string search = "$" + to_string(i);
-    //printf("%i: find %s in %s\n",i,search.c_str(),expr.c_str());
     size_t startPos = expr.find(search);
+    //printf("%i: find %s in %s for %s\n",i,search.c_str(),expr.c_str(),subexprs[i].c_str());
     if(startPos == string::npos) continue;
     int t = 0;
     expr.replace(startPos,search.length(),"(" + encapsulate(subexprs[i]) + ")");
