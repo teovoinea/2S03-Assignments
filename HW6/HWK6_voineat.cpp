@@ -50,11 +50,12 @@ int main(){
 			no_space += input[i];
 		}
 	}
-	input = remove_brackets(handleNegatives(no_space));
+	input = handleNegatives(no_space);
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
+	cout << input << endl;
 	string bedmas = encapsulate(input);
-  cout << bedmas << endl;
+    cout << bedmas << endl;
 	int l = 0;
 	int m = 0;
 	string s = breakdown(bedmas, l);
