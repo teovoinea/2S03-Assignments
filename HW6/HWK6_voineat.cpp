@@ -13,8 +13,6 @@
 #include <stdio.h>
 #include <string>
 #include <sstream>
-#include <vector>
-#include <stack>
 #include <cmath>
 using namespace std;
 string calculate(string input);
