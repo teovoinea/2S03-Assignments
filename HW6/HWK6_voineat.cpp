@@ -36,6 +36,41 @@ Division divide = Division();
 // any scenario where its a (length 3 expression) op (length 2 expression) only evaluates the first expression
 
 
+bool legalOperation(string expr){
+  char dmas[] = {'/','*','+','-'};
+  for(int i = 0; i < 4;i++){
+    for(int x = 0; x < expr.length()-1; x++){
+      if(expr[x] == dmas[i]){
+        for(int j = 0; j < 4; j++){
+          if(dmas[j] == expr[x+1]){
+            return false;
+          }
+        }
+      }
+    }
+  }
+  return true;
+}
+
+bool goodBrackets(string input){
+  int openbracket = 0;
+  int closebracket = 0;
+  for (int i = 0; i < input.length(); i++){
+    if (input[i] == '('){
+      openbracket++;
+    }
+    if (input[i] == ')'){
+      closebracket++;
+    }
+  }
+  if (openbracket != closebracket){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
 int main(){
 	//Get input
 	cout << "Please enter an expression: ";
@@ -48,6 +83,14 @@ int main(){
 			no_space += input[i];
 		}
 	}
+  if(!legalOperation(no_space)){
+    cerr << "invalid operation" << endl;
+    return 0;
+  }
+  if(!goodBrackets(no_space)){
+    cerr << "mismatching brackets" << endl;
+    return 0;
+  }
 	input = handleNegatives(no_space);
 	/***************Currently, everything needs to be wrapped in brackets***************/
 	//replace ' ' with ''
@@ -60,7 +103,8 @@ int main(){
         //	string calc = breakdown(input, m);
 
 	//cout << "answer: " << calc << endl;
-	cout << "answer: " << s << endl;
+  double res = stod(s);
+  printf("answer: %.02f",res);
 
 }
 /*
@@ -143,22 +187,22 @@ string calculate(string input){
 		if (split_string[1] == "+"){
 			//pass in whole string eg: "3+4"
 			store_return = add.evaluate(split_string[0] + split_string[1] + split_string[2]);
-			add.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
+			add.print(split_string[0]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "-"){
 			//pass in whole string eg: "3-4"
 			store_return = sub.evaluate(split_string[0] + split_string[1] + split_string[2]);
-			sub.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
+			sub.print(split_string[0]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "*"){
 			//pass in whole string eg: "3*4"
 			store_return = mul.evaluate(split_string[0] + split_string[1] + split_string[2]);
-			mul.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
+			mul.print(split_string[0]); //print the input, because we're dealing with only numbers
 		}
 		if (split_string[1] == "/"){
 			//pass in whole string eg: "3/4"
 			store_return = divide.evaluate(split_string[0] + split_string[1] + split_string[2]);
-			divide.print(split_string[0] + split_string[1] + split_string[2]); //print the input, because we're dealing with only numbers
+			divide.print(split_string[0]); //print the input, because we're dealing with only numbers
 		}
     delete[] split_string;
 		return store_return;
@@ -169,22 +213,22 @@ string calculate(string input){
 		if (split_string[1] == "+"){
 			//pass in whole string eg: expression+4
 			store_return = add.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
-			add.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
+			//add.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
 		if (split_string[1] == "-"){
 			//pass in whole string eg: expression-4
 			store_return = sub.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
-			sub.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
+			//sub.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}	
 		if (split_string[1] == "*"){
 			//pass in whole string eg: expression*4
 			store_return = mul.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
-			mul.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
+			//mul.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
 		if (split_string[1] == "/"){
 			//pass in whole string eg: expression/4
 			store_return = divide.evaluate(calculate(split_string[0]) + split_string[1] + split_string[2]);
-			divide.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
+			//divide.print(split_string[1] + split_string[2]); //print the right half because that's the part that's only numbers
 		}
     delete[] split_string;
 		return store_return;
@@ -195,22 +239,22 @@ string calculate(string input){
 		if (split_string[1] == "+"){
 			//pass in whole string eg: 3+expression
 			store_return = add.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
-			add.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
+			//add.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "-"){
 			//pass in whole string eg: 3-expression
 			store_return = sub.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
-			sub.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
+			//sub.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "*"){
 			//pass in whole string eg: 3*expression
 			store_return = mul.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
-			mul.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
+			//mul.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
 		if (split_string[1] == "/"){
 			//pass in whole string eg: 3/expression
 			store_return = divide.evaluate(split_string[0] + split_string[1] + calculate(split_string[2]));
-			divide.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
+			//divide.print(split_string[0] + split_string[1]); //print the left half because that's the part that's only numbers
 		}
     delete[] split_string;
 		return store_return;
